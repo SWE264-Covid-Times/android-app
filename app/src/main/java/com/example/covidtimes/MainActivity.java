@@ -23,5 +23,14 @@ public class MainActivity extends AppCompatActivity {
            }
        });
 
+        final Button statsButton = findViewById(R.id.stats_button);
+        statsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent statsIntent = new Intent(getApplicationContext(), StatsActivity.class);
+                startActivity(statsIntent);
+            }
+        });
+
     }
 }

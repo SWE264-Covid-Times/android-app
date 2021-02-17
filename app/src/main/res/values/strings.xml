@@ -6,4 +6,16 @@
         Statistics courtesy the wonderful folks at Johns Hopkins University.</string>
     <string name="infoExplore"> Start Exploring!</string>
     <string name="version">Version 1.0</string>
+
+    <string name="stats_button">Stats</string>
+    <string-array name="countries">
+        <item>south-africa</item>
+        <item>united-states</item>
+        <item>australia</item>
+    </string-array>
+    <string name="search_button">Search</string>
+    <string name="time_format">YYYYMMDD</string>
+
+
+
 </resources>
