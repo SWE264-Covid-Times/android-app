@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">CovidTimes</string>
     <string name="info">info</string>
-    <string name="infoDesc1">CovidTimes provides you timely covid19 case count info in your area.\n
-        View and compare statistics by country or time-frame.\n
-        Statistics courtesy the wonderful folks at Johns Hopkins University.</string>
+    <string name="infoDesc1">View timely covid19 case count info in your area.\n
+        Compare statistics by country or time-frame.\n
+        Statistics courtesy Johns Hopkins University.</string>
     <string name="infoExplore"> Start Exploring!</string>
     <string name="version">Version 1.0</string>
 
