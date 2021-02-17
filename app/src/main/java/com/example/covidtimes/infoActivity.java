@@ -18,7 +18,7 @@ public class infoActivity extends AppCompatActivity {
         infoExpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent statIntent = new Intent(getApplicationContext(),displayStats.class);
+                Intent statIntent = new Intent(getApplicationContext(), StatsActivity.class);
                 startActivity(statIntent);
             }
         });

@@ -12,5 +12,5 @@ public interface StatsAPIService {
 
     //returns all cases by case type for a country in given date range
     @GET("country/{country}")
-    Call<List<AllCaseType>> getCasesWithTimeFrame(@Path("country") String country, @Query("from_date") String fromDate, @Query("to_date") String toDate);
+    Call<List<CountryStatsInfo>> getCasesWithTimeFrame(@Path("country") String country, @Query("from_date") String fromDate, @Query("to_date") String toDate);
 }
