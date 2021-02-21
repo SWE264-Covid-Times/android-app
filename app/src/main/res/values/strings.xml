@@ -2,8 +2,10 @@
     <string name="app_name">CovidTimes</string>
     <string name="info">info</string>
     <string name="infoDesc1">View timely covid19 case count info in your area.\n
-        Compare statistics by country or time-frame.\n
-        Statistics courtesy Johns Hopkins University.</string>
+        Compare statistics by country or time-frame.
+    </string>
+    <string name="infoJHULink">Find more at <a href = "https://www.arcgis.com/apps/opsdashboard/index.html#/85320e2ea5424dfaaa75ae62e5c06e61">John Hopkins University</a>
+    </string>
     <string name="infoExplore"> Start Exploring!</string>
     <string name="version">Version 1.0</string>
 
