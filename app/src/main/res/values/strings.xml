@@ -15,7 +15,17 @@
     </string-array>
     <string name="search_button">Search</string>
     <string name="time_format">YYYYMMDD</string>
+    <string name="title_activity_app_main_page">appMainPage</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Covid-Times</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 
+    <string name="menu_home">About</string>
+    <string name="menu_gallery">Stats</string>
+    <string name="menu_slideshow">Health Guidelines</string>
 
 
 </resources>
