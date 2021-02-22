@@ -29,5 +29,7 @@
     <string name="menu_gallery">Stats</string>
     <string name="menu_slideshow">Health Guidelines</string>
 
+    <string name="notif_title">Stay up-to-date with Covid-Times</string>
+    <string name="notif_text">Click to see the latest stats</string>
 
 </resources>

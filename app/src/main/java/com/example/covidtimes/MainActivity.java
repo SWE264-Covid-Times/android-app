@@ -56,7 +56,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(statsIntent);
             }
         });
-
     }
-
+/*
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Intent intent = new Intent(this, DelayedMessageService.class);
+        intent.putExtra(DelayedMessageService.EXTRA_MESSAGE, getResources().getString(R.string.notif_text));
+        startService(intent);
+    }*/
 }

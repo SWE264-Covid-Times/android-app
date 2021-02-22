@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CovidTimes">
+        <!--android:theme="@style/Theme.CovidTimes.NoActionBar" -->
        <activity
             android:name=".appMainPage"
             android:label="@string/title_activity_app_main_page"
