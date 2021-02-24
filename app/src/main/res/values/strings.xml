@@ -33,5 +33,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="notif_title">Stay up-to-date with Covid-Times</string>
+    <string name="notif_text">Click to see the latest stats</string>
 
 </resources>

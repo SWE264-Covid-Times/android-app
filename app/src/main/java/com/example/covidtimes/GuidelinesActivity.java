@@ -16,7 +16,7 @@ public class GuidelinesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guidelines);
 
-        TextView tv = findViewById(R.id.textView10);
+        TextView tv = findViewById(R.id.textView8);
         tv.setMovementMethod(LinkMovementMethod.getInstance());
 
     }
