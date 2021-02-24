@@ -11,18 +11,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CovidTimes">
-       <activity
+        <activity android:name=".ui.Guidelines"></activity>
+        <activity
             android:name=".appMainPage"
             android:label="@string/title_activity_app_main_page"
-            android:theme="@style/Theme.CovidTimes.NoActionBar">
-           <intent-filter>
-               <action android:name="android.intent.action.MAIN" />
-               <category android:name="android.intent.category.LAUNCHER" />
-           </intent-filter>
-       </activity>
+            android:theme="@style/Theme.CovidTimes.NoActionBar"></activity>
         <activity android:name=".StatsActivity" />
         <activity android:name=".infoActivity" />
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".GuidelinesActivity"/>
     </application>
 
 </manifest>

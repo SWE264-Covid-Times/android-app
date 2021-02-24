@@ -56,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(statsIntent);
             }
         });
+        final Button guideline_button = findViewById(R.id.button_guideline);
+        guideline_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent guidelineIntent = new Intent(getApplicationContext(), GuidelinesActivity.class);
+                startActivity(guidelineIntent);
+            }
+        });
 
     }
 
