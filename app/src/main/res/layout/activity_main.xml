@@ -45,6 +45,7 @@
         android:textColor="#0C0C0C"
         android:textColorLink="#2E2C2C"
         android:visibility="visible"
+        android:buttonTint="@color/teal_200"
         app:layout_constraintBottom_toTopOf="@+id/login_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
