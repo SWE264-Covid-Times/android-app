@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     public void clk_login(View view){
@@ -63,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(guidelineIntent);
             }
         });
-
+        Intent intent = new Intent(this, DelayedMessageService.class);
+        intent.putExtra(DelayedMessageService.EXTRA_MESSAGE,  getResources().getString(R.string.notif_text));
+        //Toast.makeText(this, "toast test", Toast.LENGTH_SHORT).show();
+        startService(intent);
     }
 }

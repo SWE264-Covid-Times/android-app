@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.app.NotificationManager;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -22,7 +23,7 @@ public class DelayedMessageService extends IntentService {
     @Override protected void onHandleIntent(Intent intent){
         synchronized(this){
             try{
-                wait(100);//change this wait timeout value later
+                wait(1000);//change this wait timeout value later
             } catch(InterruptedException e){
                 e.printStackTrace();
             }
@@ -32,11 +33,15 @@ public class DelayedMessageService extends IntentService {
     }
 
     private void showText(final String text){
+        Intent broadIntent = new Intent(this, MyReceiver.class);
+        broadIntent.setAction("Check new cases for : ");
+        PendingIntent broadPending = PendingIntent.getBroadcast(this, 0 , broadIntent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(android.R.drawable.sym_def_app_icon)
                 .setContentTitle(getString(R.string.notif_title))
                 .setContentText(text)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .addAction(R.drawable.ic_launcher_foreground, "Check", broadPending)
                 //.setVibrate(new long[] {0,100})
                 .setAutoCancel(true);
         Intent actionIntent = new Intent(this, MainActivity.class);

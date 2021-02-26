@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".GuidelinesActivity"/>
 
+        <service android:name = ".DelayedMessageService"/>
+        <receiver android:name = ".MyReceiver"/>
 
     </application>
 
