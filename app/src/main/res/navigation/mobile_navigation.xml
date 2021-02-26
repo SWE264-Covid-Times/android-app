@@ -6,20 +6,32 @@
     app:startDestination="@+id/nav_home">
 
     <fragment
+        android:id="@+id/nav_login"
+        android:name="com.example.covidtimes.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
         android:id="@+id/nav_home"
         android:name="com.example.covidtimes.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="@string/menu_about"
+        tools:layout="@layout/fragment_about" />
 
     <fragment
         android:id="@+id/nav_stat"
         android:name="com.example.covidtimes.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_stats"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_guidelines"
         android:name="com.example.covidtimes.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_guidelines"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_history"
+        android:name="com.example.covidtimes.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_history"
+        tools:layout="@layout/fragment_slideshow" />
+
 </navigation>

@@ -8,8 +8,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/TextAppearance.AppCompat.Headline">
+        android:layout_height="42dp">
 
 
         <androidx.appcompat.widget.Toolbar
@@ -17,18 +16,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/purple_500"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:fitsSystemWindows="true"
             app:popupTheme="@style/Theme.CovidTimes.PopupOverlay" />
+
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <include layout="@layout/content_main" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
+        android:layout_width="42dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_menu_gallery" />
+        app:srcCompat="@drawable/ic_menu_gallery" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

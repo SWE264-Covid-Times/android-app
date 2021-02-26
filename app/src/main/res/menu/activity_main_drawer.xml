@@ -5,16 +5,27 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/ic_login"
+            android:title="@string/menu_login" />
+        <item
             android:id="@+id/nav_about"
             android:icon="@android:drawable/ic_dialog_info"
-            android:title="@string/menu_home" />
+            android:title="@string/menu_about"
+            android:checked="true"/>
         <item
             android:id="@+id/nav_stat"
             android:icon="@android:drawable/ic_menu_today"
-            android:title="@string/menu_gallery" />
+            android:title="@string/menu_stats" />
         <item
             android:id="@+id/nav_guidelines"
             android:icon="@android:drawable/ic_input_add"
-            android:title="@string/menu_slideshow" />
+            android:title="@string/menu_guidelines" />
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@android:drawable/ic_menu_recent_history"
+            android:title="@string/menu_history" />
+
+
     </group>
 </menu>
