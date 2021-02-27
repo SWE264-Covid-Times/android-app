@@ -38,8 +38,13 @@ public class MyReceiver extends BroadcastReceiver {
             @Override
             public void onResponse(Call<List<StateStatsInfo>> call, Response<List<StateStatsInfo>> response){
                 List<StateStatsInfo> stateInfo = response.body();
-                StateStatsInfo stat = stateInfo.get(0);
-                Toast.makeText(context, "New cases: "  + stat.getNewCase(), Toast.LENGTH_LONG).show();
+                if (stateInfo.size() > 0){
+                    StateStatsInfo stat = stateInfo.get(0);
+                    Toast.makeText(context, "New cases: "  + stat.getNewCase(), Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(context, "No updates found", Toast.LENGTH_SHORT).show();
+                }
             }
             @Override
             public void onFailure(Call<List<StateStatsInfo>> call, Throwable throwable){
@@ -48,6 +53,6 @@ public class MyReceiver extends BroadcastReceiver {
         });
     }
     private String getDate(){
-        return dateStringHelper.getStateQueryableDate("2021","02","01");
+        return dateStringHelper.getCurrentStateQueryableDate();
     }
 }
