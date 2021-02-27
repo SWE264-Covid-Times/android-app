@@ -1,5 +1,6 @@
 package com.example.covidtimes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -45,6 +46,12 @@ public class appMainPage extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+        Intent intent = new Intent(this, DelayedMessageService.class);
+        intent.putExtra(DelayedMessageService.EXTRA_MESSAGE,  getResources().getString(R.string.notif_text));
+        //Toast.makeText(this, "toast test", Toast.LENGTH_SHORT).show();
+        startService(intent);
     }
 
     @Override

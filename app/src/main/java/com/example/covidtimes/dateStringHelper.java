@@ -5,6 +5,7 @@ import java.text.ParseException;
 
 public class dateStringHelper {
     private static String default_time = "T00:00:00:Z";
+    private static String default_state_time = "T00:00:00.000";
 
     private static String addDashes(String year, String month, String day){
         return year + "-" + month + "-" + day;
@@ -12,6 +13,9 @@ public class dateStringHelper {
 
     public static String getQueryableDate(String year, String month, String day){
         return addDashes(year,month,day) + default_time;
+    }
+    public static String getStateQueryableDate(String year, String month, String day){
+        return addDashes(year, month, day) + default_state_time;
     }
     public static boolean isValidDate(String year, String month, String day){
         String date = addDashes(year,month,day);
