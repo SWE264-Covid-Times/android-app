@@ -3,7 +3,7 @@ package com.example.covidtimes;
 import java.util.HashMap;
 import java.util.List;
 
-// store country slug pair
+// store all country slug pair
 public  class AllCountrySlug {
     private HashMap<String, String> countrySlug = null;
 

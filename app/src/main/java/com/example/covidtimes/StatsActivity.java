@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -22,7 +21,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import org.json.*;
 
 public class StatsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -47,7 +45,6 @@ public class StatsActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         context = this;
 
-        System.out.println("yo1");
         loadCountries();
     }
 
@@ -55,6 +52,7 @@ public class StatsActivity extends AppCompatActivity {
         // sample valid input:
         // 20200301
         // will return information of selected country from 20200301 to 20200307
+
         Spinner spCountry = (Spinner) findViewById(R.id.spCountry);
         String raw_country = String.valueOf(spCountry.getSelectedItem());
         country = allCountrySlug.getSlug(raw_country);
@@ -122,6 +120,7 @@ public class StatsActivity extends AppCompatActivity {
                     System.out.println("Not able to connect to server");
                 }
 
+                // load spinner
                 loadSpinner();
             }
 
@@ -139,6 +138,7 @@ public class StatsActivity extends AppCompatActivity {
                 this,
                 android.R.layout.simple_spinner_item,
                 allCountrySlug.getCountrySlugPairs().keySet().toArray());
+
         ad.setDropDownViewResource(
                 android.R.layout
                         .simple_spinner_dropdown_item);
