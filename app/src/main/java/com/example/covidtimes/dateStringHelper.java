@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 public class dateStringHelper {
-    private static String default_time = "T00:00:00:Z";
+    private static String default_time = "T00:00:00Z";
     private static String default_state_time = "T00:00:00.000";
 
     private static String addDashes(String year, String month, String day){
