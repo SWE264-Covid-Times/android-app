@@ -64,12 +64,21 @@ public class StatsActivity extends AppCompatActivity {
                 raw_from_date.substring(4, 6),
                 raw_from_date.substring(6, 8));
 
-        EditText etToDate = (EditText) findViewById(R.id.etToDate);
-        String raw_to_date = etToDate.getText().toString();
+        // create a new to_date with range of a week
+        String raw_to_date = Integer.toString(Integer.getInteger(raw_from_date) + 6);
+        System.out.println(raw_to_date);
         to_date = dateStringHelper.getQueryableDate(
                 raw_to_date.substring(0, 4),
                 raw_to_date.substring(4, 6),
                 raw_to_date.substring(6, 8));
+
+
+//        EditText etToDate = (EditText) findViewById(R.id.etToDate);
+//        String raw_to_date = etToDate.getText().toString();
+//        to_date = dateStringHelper.getQueryableDate(
+//                raw_to_date.substring(0, 4),
+//                raw_to_date.substring(4, 6),
+//                raw_to_date.substring(6, 8));
 
         connect();
     }
