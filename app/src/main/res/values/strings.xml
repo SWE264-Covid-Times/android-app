@@ -9,6 +9,8 @@
     <string name="infoExplore"> Start Exploring!</string>
     <string name="version">Version 1.0</string>
 
+    <string name="statsDescription">Weekly Covid cases around the world.\n
+        Select a country and enter a starting date</string>
     <string name="stats_button">Stats</string>
     <string-array name="countries">
         <item>south-africa</item>
