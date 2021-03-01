@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
 
+import com.example.covidtimes.ui.about.AboutFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -35,6 +37,15 @@ public class appMainPage extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
+//        final Button clickbtn = findViewById(R.id.nav_about);
+//        clickbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent infoActivityIntent = new Intent(getApplicationContext(),AboutFragment.class);
+//                startActivity(infoActivityIntent);
+//            }
+//        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -66,5 +77,9 @@ public class appMainPage extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+
+    public void onClickConfirm(View view) {
     }
 }

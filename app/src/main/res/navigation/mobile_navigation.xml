@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_about">
 
     <fragment
         android:id="@+id/nav_login"
-        android:name="com.example.covidtimes.ui.slideshow.SlideshowFragment"
+        android:name="com.example.covidtimes.ui.login.LoginFragment"
         android:label="@string/menu_login"
         tools:layout="@layout/fragment_login" />
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.covidtimes.ui.home.HomeFragment"
+        android:id="@+id/nav_about"
+        android:name="com.example.covidtimes.ui.about.AboutFragment"
         android:label="@string/menu_about"
         tools:layout="@layout/fragment_about" />
 
@@ -27,10 +27,10 @@
         android:id="@+id/nav_guidelines"
         android:name="com.example.covidtimes.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_guidelines"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/content_main" />
     <fragment
         android:id="@+id/nav_history"
-        android:name="com.example.covidtimes.ui.slideshow.SlideshowFragment"
+        android:name="com.example.covidtimes.ui.history.HistoryFragment"
         android:label="@string/menu_history"
         tools:layout="@layout/fragment_slideshow" />
 
