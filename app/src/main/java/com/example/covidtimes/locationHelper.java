@@ -26,7 +26,6 @@ public class locationHelper{
     public locationHelper(Context c){
         locManager = (LocationManager)c.getSystemService(Context.LOCATION_SERVICE);
         context = c;
-        bestProvider = locManager.getBestProvider(new Criteria(), true);
     }
 
     public String getCurrentCountry(){
@@ -44,6 +43,10 @@ public class locationHelper{
             result = geoResult.get(0).getAdminArea();
         }
         return result;
+    }
+
+    public boolean askPermissions(){
+        return handlePermissions();
     }
 
 
@@ -75,6 +78,7 @@ public class locationHelper{
     private List<Address> getAddress(){
         List<Address> result = new ArrayList<>();
         if (handlePermissions()){
+            bestProvider = locManager.getBestProvider(new Criteria(), true);
             @SuppressLint("MissingPermission")
             Location lastKnown = locManager.getLastKnownLocation(bestProvider);
             Geocoder g = new Geocoder(context);

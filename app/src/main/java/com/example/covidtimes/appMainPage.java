@@ -1,7 +1,9 @@
 package com.example.covidtimes;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
@@ -22,6 +24,7 @@ import androidx.appcompat.widget.Toolbar;
 public class appMainPage extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private locationHelper locHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,10 @@ public class appMainPage extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        locHelper = new locationHelper(this);
+        if (locHelper.askPermissions()){
+            onLocationPermissionGranted();
+        }
 
         Intent intent = new Intent(this, DelayedMessageService.class);
         intent.putExtra(DelayedMessageService.EXTRA_MESSAGE,  getResources().getString(R.string.notif_text));
@@ -81,5 +88,27 @@ public class appMainPage extends AppCompatActivity {
 
 
     public void onClickConfirm(View view) {
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+        switch(requestCode){
+            case locationHelper.PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    onLocationPermissionGranted();
+                }
+                else{ // if permissions were denied
+                    Log.v(this.getClass().getName(), "Location access denied");
+                }
+            }
+        }
+    }
+
+    private void onLocationPermissionGranted(){
+        Log.v(this.getClass().getName(), locHelper.getCurrentCountry());
+        if (locHelper.getCurrentCountry().equals("US")){
+            Log.v(this.getClass().getName(), locHelper.getCurrentState());
+        }
     }
 }

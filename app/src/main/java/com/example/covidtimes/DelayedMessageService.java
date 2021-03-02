@@ -44,7 +44,7 @@ public class DelayedMessageService extends IntentService {
                 .addAction(R.drawable.ic_launcher_foreground, "Check", broadPending)
                 //.setVibrate(new long[] {0,100})
                 .setAutoCancel(true);
-        Intent actionIntent = new Intent(this, MainActivity.class);
+        Intent actionIntent = new Intent(this, appMainPage.class);
         PendingIntent actionPendingIntent = PendingIntent.getActivity(this,
                 0, actionIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(actionPendingIntent);
