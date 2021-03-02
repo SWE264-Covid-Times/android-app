@@ -66,10 +66,6 @@ public class appMainPage extends AppCompatActivity {
             onLocationPermissionGranted();
         }
 
-        Intent intent = new Intent(this, DelayedMessageService.class);
-        intent.putExtra(DelayedMessageService.EXTRA_MESSAGE,  getResources().getString(R.string.notif_text));
-        //Toast.makeText(this, "toast test", Toast.LENGTH_SHORT).show();
-        startService(intent);
     }
 
     @Override
@@ -110,5 +106,9 @@ public class appMainPage extends AppCompatActivity {
         if (locHelper.getCurrentCountry().equals("US")){
             Log.v(this.getClass().getName(), locHelper.getCurrentState());
         }
+        Intent intent = new Intent(this, DelayedMessageService.class);
+        intent.putExtra(DelayedMessageService.EXTRA_MESSAGE, locHelper.getCurrentState());
+        //Toast.makeText(this, "toast test", Toast.LENGTH_SHORT).show();
+        startService(intent);
     }
 }

@@ -34,14 +34,15 @@ public class DelayedMessageService extends IntentService {
 
     private void showText(final String text){
         Intent broadIntent = new Intent(this, MyReceiver.class);
-        broadIntent.setAction("Check new cases for : ");
+        broadIntent.setAction("Check new cases for : " + text);
+        broadIntent.putExtra(DelayedMessageService.EXTRA_MESSAGE, dateStringHelper.stateToAbbrev(text));
         PendingIntent broadPending = PendingIntent.getBroadcast(this, 0 , broadIntent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(android.R.drawable.sym_def_app_icon)
                 .setContentTitle(getString(R.string.notif_title))
-                .setContentText(text)
+                .setContentText(getResources().getString(R.string.notif_text))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .addAction(R.drawable.ic_launcher_foreground, "Check", broadPending)
+                .addAction(R.drawable.ic_launcher_foreground, "Check new cases for: " + text, broadPending)
                 //.setVibrate(new long[] {0,100})
                 .setAutoCancel(true);
         Intent actionIntent = new Intent(this, appMainPage.class);

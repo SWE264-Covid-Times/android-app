@@ -17,12 +17,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MyReceiver extends BroadcastReceiver {
     private static Retrofit retrofit = null;
     private Context context;
-
+    private String state;
 
     @Override
     public void onReceive(Context c, Intent i){
         //Toast.makeText(c, "New cases: " , Toast.LENGTH_LONG).show();
         context = c;
+        state = i.getStringExtra(DelayedMessageService.EXTRA_MESSAGE);
         connect();
     }
     private void connect(){
@@ -33,7 +34,7 @@ public class MyReceiver extends BroadcastReceiver {
                     .build();
         }
         StatsAPIServiceStates apiService = retrofit.create(StatsAPIServiceStates.class);
-        Call<List<StateStatsInfo>> call = apiService.getStateCasesByDate(getDate(), "CA");
+        Call<List<StateStatsInfo>> call = apiService.getStateCasesByDate(getDate(), state);
         call.enqueue(new Callback<List<StateStatsInfo>>(){
             @Override
             public void onResponse(Call<List<StateStatsInfo>> call, Response<List<StateStatsInfo>> response){
