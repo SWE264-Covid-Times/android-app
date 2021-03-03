@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -41,14 +43,32 @@ public class StatsActivity extends AppCompatActivity {
 
     private AllCountrySlug allCountrySlug = null;
 
+    private boolean loadSecondCountryLayout = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stats);
+//        if (savedInstanceState != null)
+//            loadSecondCountryLayout = savedInstanceState.getBoolean("LOAD_SECOND_COUNTRY_LAYOUT", false);
+        loadSecondCountryLayout = getIntent().getBooleanExtra("loadSecondCountryLayout", false);
+        System.out.println(loadSecondCountryLayout);
+        if (loadSecondCountryLayout)
+            setContentView(R.layout.activity_stats_two_countries);
+        else
+            setContentView(R.layout.activity_stats);
         linearLayoutManager = new LinearLayoutManager(this);
         context = this;
 
+        // load all the countries from Covid-19 API
         loadCountries();
+    }
+
+    public void loadComparisonLayout(View view) {
+        loadSecondCountryLayout = true;
+        finish();
+        Intent intent = new Intent(getBaseContext(), StatsActivity.class);
+        intent.putExtra("loadSecondCountryLayout", true);
+        startActivity(intent);
     }
 
     public void onClickConfirm(View view) {
@@ -124,11 +144,15 @@ public class StatsActivity extends AppCompatActivity {
                 System.out.println("yo4");
                 List<CountrySlugInfo> statsInfo = response.body();
 
-                for (CountrySlugInfo csc : statsInfo)
-                    System.out.println(csc.getCountry());
-                System.out.println("here: " + statsInfo);
+//                for (CountrySlugInfo csc : statsInfo)
+//                    System.out.println(csc.getCountry());
+//                System.out.println("here: " + statsInfo);
                 if (statsInfo != null) {
+                    System.out.println("here");
                     allCountrySlug = new AllCountrySlug(statsInfo);
+
+                    for (String key: allCountrySlug.getCountrySlugPairs().keySet())
+                    System.out.println(key);
                 } else {
                     reminder = "Not able to connect to server";
                     Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
@@ -160,6 +184,21 @@ public class StatsActivity extends AppCompatActivity {
                 android.R.layout
                         .simple_spinner_dropdown_item);
         spCountry.setAdapter(ad);
+
+        if (loadSecondCountryLayout) {
+            Spinner spSecondCountry = (Spinner) findViewById(R.id.spSecondCountry);
+            ArrayAdapter adSecondCountry
+                    = new ArrayAdapter(
+                    this,
+                    android.R.layout.simple_spinner_item,
+                    allCountrySlug.getCountrySlugPairs().keySet().toArray());
+
+            adSecondCountry.setDropDownViewResource(
+                    android.R.layout
+                            .simple_spinner_dropdown_item);
+            spSecondCountry.setAdapter(adSecondCountry);
+
+        }
     }
 
     private void connect() {

@@ -3,7 +3,7 @@
     package="com.example.covidtimes">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -12,29 +12,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CovidTimes.NoActionBar">
-
-        <activity android:name=".appMainPage">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> </activity>
-        <activity android:name=".StatsActivity" />
+        <activity android:name=".stats_two_countries"></activity>
+         <activity android:name=".appMainPage">
+         <intent-filter>
+         <action android:name="android.intent.action.MAIN" />
+         <category android:name="android.intent.category.LAUNCHER" />
+         </intent-filter> </activity>
+         <activity android:name=".StatsActivity" />
         <activity android:name=".infoActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".GuidelinesActivity" />
 
-        </activity>
-        <activity android:name=".GuidelinesActivity"/>
+        <service android:name=".DelayedMessageService" />
 
-        <service android:name = ".DelayedMessageService"/>
-        <receiver android:name = ".MyReceiver"/>
-
-
+        <receiver android:name=".MyReceiver" />
 
 <!--        <activity android:name=".StatsActivity">-->
-<!--        <intent-filter>-->
-<!--            <action android:name="android.intent.action.MAIN" />-->
-<!--            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--        </intent-filter> </activity>-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
     </application>
 
 </manifest>
