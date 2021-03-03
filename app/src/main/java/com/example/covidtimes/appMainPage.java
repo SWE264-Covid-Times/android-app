@@ -1,3 +1,5 @@
+//this is our new main page of navigation drawer template
+
 package com.example.covidtimes;
 
 import android.content.Intent;

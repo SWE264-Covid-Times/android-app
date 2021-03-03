@@ -1,3 +1,5 @@
+// this about page is shifted to new template, no longer using this
+
 package com.example.covidtimes;
 
 import androidx.appcompat.app.AppCompatActivity;

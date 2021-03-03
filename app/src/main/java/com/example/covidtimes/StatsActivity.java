@@ -1,3 +1,6 @@
+// this stat page is from old template- so we need to add this to our navigation template
+
+
 package com.example.covidtimes;
 
 import androidx.appcompat.app.AppCompatActivity;
