@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -41,14 +43,32 @@ public class StatsActivity extends AppCompatActivity {
 
     private AllCountrySlug allCountrySlug = null;
 
+    private boolean loadSecondCountryLayout = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stats);
+//        if (savedInstanceState != null)
+//            loadSecondCountryLayout = savedInstanceState.getBoolean("LOAD_SECOND_COUNTRY_LAYOUT", false);
+        loadSecondCountryLayout = getIntent().getBooleanExtra("loadSecondCountryLayout", false);
+        System.out.println(loadSecondCountryLayout);
+        if (loadSecondCountryLayout)
+            setContentView(R.layout.activity_stats_two_countries);
+        else
+            setContentView(R.layout.activity_stats);
         linearLayoutManager = new LinearLayoutManager(this);
         context = this;
 
+        // load all the countries from Covid-19 API
         loadCountries();
+    }
+
+    public void loadComparisonLayout(View view) {
+        loadSecondCountryLayout = true;
+        finish();
+        Intent intent = new Intent(getBaseContext(), StatsActivity.class);
+        intent.putExtra("loadSecondCountryLayout", true);
+        startActivity(intent);
     }
 
     public void onClickConfirm(View view) {
@@ -63,32 +83,46 @@ public class StatsActivity extends AppCompatActivity {
 
         EditText etFromDate = (EditText) findViewById(R.id.etFromDate);
         String raw_from_date = etFromDate.getText().toString();
-        from_date = dateStringHelper.getQueryableDate(
-                raw_from_date.substring(0, 4),
-                raw_from_date.substring(4, 6),
-                raw_from_date.substring(6, 8));
+        boolean validFromDate = false;
+        if (raw_from_date.length() == 8) {
+            validFromDate = dateStringHelper.isValidDate(raw_from_date.substring(0, 4),
+                    raw_from_date.substring(4, 6),
+                    raw_from_date.substring(6, 8));
+        }
+        if (validFromDate) {
+            from_date = dateStringHelper.getQueryableDate(
+                    raw_from_date.substring(0, 4),
+                    raw_from_date.substring(4, 6),
+                    raw_from_date.substring(6, 8));
 
-        // create a new to_date with range of a week
-        System.out.println("String " + raw_from_date);
-        System.out.println("Integer " + Integer.parseInt(raw_from_date));
-        String raw_to_date = Integer.toString(Integer.parseInt(raw_from_date) + 6);
-        System.out.println(raw_to_date);
-        to_date = dateStringHelper.getQueryableDate(
-                raw_to_date.substring(0, 4),
-                raw_to_date.substring(4, 6),
-                raw_to_date.substring(6, 8));
-        System.out.println("from " +from_date + " " + "to " + to_date);
+            // create a new to_date with range of a week
+            System.out.println("String " + raw_from_date);
+            System.out.println("Integer " + Integer.parseInt(raw_from_date));
+            String raw_to_date = Integer.toString(Integer.parseInt(raw_from_date) + 6);
+            System.out.println(raw_to_date);
+            to_date = dateStringHelper.getQueryableDate(
+                    raw_to_date.substring(0, 4),
+                    raw_to_date.substring(4, 6),
+                    raw_to_date.substring(6, 8));
+            System.out.println("from " + from_date + " " + "to " + to_date);
 
-// let user to enter a to_date
-//        EditText etToDate = (EditText) findViewById(R.id.etToDate);
-//        String raw_to_date = etToDate.getText().toString();
-//        to_date = dateStringHelper.getQueryableDate(
-//                raw_to_date.substring(0, 4),
-//                raw_to_date.substring(4, 6),
-//                raw_to_date.substring(6, 8));
-//        System.out.println("from " +from_date + " " + "to " + to_date);
+            // let user to enter a to_date
+            //        EditText etToDate = (EditText) findViewById(R.id.etToDate);
+            //        String raw_to_date = etToDate.getText().toString();
+            //        to_date = dateStringHelper.getQueryableDate(
+            //                raw_to_date.substring(0, 4),
+            //                raw_to_date.substring(4, 6),
+            //                raw_to_date.substring(6, 8));
+            //        System.out.println("from " +from_date + " " + "to " + to_date);
 
-        connect();
+            connect();
+        } else {
+            reminder = "Make sure to follow YYYYMMDD format\n Only number allowed";
+            Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
+            toast.show();
+            System.out.println(reminder);
+            reminder = null;
+        }
     }
 
 
@@ -110,17 +144,21 @@ public class StatsActivity extends AppCompatActivity {
                 System.out.println("yo4");
                 List<CountrySlugInfo> statsInfo = response.body();
 
-                for (CountrySlugInfo csc : statsInfo)
-                    System.out.println(csc.getCountry());
-                System.out.println("here: " + statsInfo);
+//                for (CountrySlugInfo csc : statsInfo)
+//                    System.out.println(csc.getCountry());
+//                System.out.println("here: " + statsInfo);
                 if (statsInfo != null) {
+                    System.out.println("here");
                     allCountrySlug = new AllCountrySlug(statsInfo);
+
+                    for (String key: allCountrySlug.getCountrySlugPairs().keySet())
+                    System.out.println(key);
                 } else {
                     reminder = "Not able to connect to server";
                     Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
                     toast.show();
+                    System.out.println(reminder);
                     reminder = null;
-                    System.out.println("Not able to connect to server");
                 }
 
                 // load spinner
@@ -146,6 +184,21 @@ public class StatsActivity extends AppCompatActivity {
                 android.R.layout
                         .simple_spinner_dropdown_item);
         spCountry.setAdapter(ad);
+
+        if (loadSecondCountryLayout) {
+            Spinner spSecondCountry = (Spinner) findViewById(R.id.spSecondCountry);
+            ArrayAdapter adSecondCountry
+                    = new ArrayAdapter(
+                    this,
+                    android.R.layout.simple_spinner_item,
+                    allCountrySlug.getCountrySlugPairs().keySet().toArray());
+
+            adSecondCountry.setDropDownViewResource(
+                    android.R.layout
+                            .simple_spinner_dropdown_item);
+            spSecondCountry.setAdapter(adSecondCountry);
+
+        }
     }
 
     private void connect() {
@@ -175,8 +228,8 @@ public class StatsActivity extends AppCompatActivity {
                     reminder = "Invalid Search:D\n No Info";
                     Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
                     toast.show();
+                    System.out.println(reminder);
                     reminder = null;
-                    System.out.println("Invalid Search:D\n No Info");
                 }
             }
 
