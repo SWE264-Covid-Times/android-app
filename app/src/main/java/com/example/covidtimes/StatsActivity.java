@@ -63,32 +63,46 @@ public class StatsActivity extends AppCompatActivity {
 
         EditText etFromDate = (EditText) findViewById(R.id.etFromDate);
         String raw_from_date = etFromDate.getText().toString();
-        from_date = dateStringHelper.getQueryableDate(
-                raw_from_date.substring(0, 4),
-                raw_from_date.substring(4, 6),
-                raw_from_date.substring(6, 8));
+        boolean validFromDate = false;
+        if (raw_from_date.length() == 8) {
+            validFromDate = dateStringHelper.isValidDate(raw_from_date.substring(0, 4),
+                    raw_from_date.substring(4, 6),
+                    raw_from_date.substring(6, 8));
+        }
+        if (validFromDate) {
+            from_date = dateStringHelper.getQueryableDate(
+                    raw_from_date.substring(0, 4),
+                    raw_from_date.substring(4, 6),
+                    raw_from_date.substring(6, 8));
 
-        // create a new to_date with range of a week
-        System.out.println("String " + raw_from_date);
-        System.out.println("Integer " + Integer.parseInt(raw_from_date));
-        String raw_to_date = Integer.toString(Integer.parseInt(raw_from_date) + 6);
-        System.out.println(raw_to_date);
-        to_date = dateStringHelper.getQueryableDate(
-                raw_to_date.substring(0, 4),
-                raw_to_date.substring(4, 6),
-                raw_to_date.substring(6, 8));
-        System.out.println("from " +from_date + " " + "to " + to_date);
+            // create a new to_date with range of a week
+            System.out.println("String " + raw_from_date);
+            System.out.println("Integer " + Integer.parseInt(raw_from_date));
+            String raw_to_date = Integer.toString(Integer.parseInt(raw_from_date) + 6);
+            System.out.println(raw_to_date);
+            to_date = dateStringHelper.getQueryableDate(
+                    raw_to_date.substring(0, 4),
+                    raw_to_date.substring(4, 6),
+                    raw_to_date.substring(6, 8));
+            System.out.println("from " + from_date + " " + "to " + to_date);
 
-// let user to enter a to_date
-//        EditText etToDate = (EditText) findViewById(R.id.etToDate);
-//        String raw_to_date = etToDate.getText().toString();
-//        to_date = dateStringHelper.getQueryableDate(
-//                raw_to_date.substring(0, 4),
-//                raw_to_date.substring(4, 6),
-//                raw_to_date.substring(6, 8));
-//        System.out.println("from " +from_date + " " + "to " + to_date);
+            // let user to enter a to_date
+            //        EditText etToDate = (EditText) findViewById(R.id.etToDate);
+            //        String raw_to_date = etToDate.getText().toString();
+            //        to_date = dateStringHelper.getQueryableDate(
+            //                raw_to_date.substring(0, 4),
+            //                raw_to_date.substring(4, 6),
+            //                raw_to_date.substring(6, 8));
+            //        System.out.println("from " +from_date + " " + "to " + to_date);
 
-        connect();
+            connect();
+        } else {
+            reminder = "Make sure to follow YYYYMMDD format\n Only number allowed";
+            Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
+            toast.show();
+            System.out.println(reminder);
+            reminder = null;
+        }
     }
 
 
@@ -119,8 +133,8 @@ public class StatsActivity extends AppCompatActivity {
                     reminder = "Not able to connect to server";
                     Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
                     toast.show();
+                    System.out.println(reminder);
                     reminder = null;
-                    System.out.println("Not able to connect to server");
                 }
 
                 // load spinner
@@ -175,8 +189,8 @@ public class StatsActivity extends AppCompatActivity {
                     reminder = "Invalid Search:D\n No Info";
                     Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
                     toast.show();
+                    System.out.println(reminder);
                     reminder = null;
-                    System.out.println("Invalid Search:D\n No Info");
                 }
             }
 

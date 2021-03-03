@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:ems="6"
-            android:hint="@string/time_format" />
+            android:hint="@string/time_format"
+            android:inputType="number"/>
 
 <!--        <EditText-->
 <!--            android:id="@+id/etToDate"-->
