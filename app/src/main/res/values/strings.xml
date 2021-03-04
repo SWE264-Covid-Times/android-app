@@ -9,6 +9,7 @@
     <string name="infoExplore"> Start Exploring!</string>
     <string name="version">Version 1.0</string>
 
+    <!-- Stats page -->
     <string name="statsDescription">Weekly Covid cases around the world.\nSelect a country and enter a starting date</string>
     <string name="stats_button">Stats</string>
     <string-array name="backupCountryList">
@@ -17,6 +18,8 @@
         <item>australia</item>
     </string-array>
     <string name="search_button">Search</string>
+    <string name="add_second_country">+</string>
+
     <string name="time_format">YYYYMMDD</string>
     <string name="title_activity_app_main_page">appMainPage</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
