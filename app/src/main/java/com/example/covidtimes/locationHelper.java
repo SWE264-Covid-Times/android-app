@@ -82,6 +82,7 @@ public class locationHelper{
             @SuppressLint("MissingPermission")
             Location lastKnown = locManager.getLastKnownLocation(bestProvider);
             Geocoder g = new Geocoder(context);
+            Log.v("brReceiver",bestProvider);
             try{
                 result = g.getFromLocation(lastKnown.getLatitude(), lastKnown.getLongitude(), 1);
             } catch (IOException e){

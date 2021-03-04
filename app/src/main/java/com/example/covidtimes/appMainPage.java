@@ -62,11 +62,11 @@ public class appMainPage extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
+/*
         locHelper = new locationHelper(this);
         if (locHelper.askPermissions()){
             onLocationPermissionGranted();
-        }
+        }*/
 
     }
 
@@ -86,6 +86,11 @@ public class appMainPage extends AppCompatActivity {
 
 
     public void onClickConfirm(View view) {
+        Log.v("appMainPage", "login?");
+    }
+
+    public void aboutOnClick(View view){
+        AboutFragment.aboutClick(view);
     }
 
     @Override
@@ -94,7 +99,7 @@ public class appMainPage extends AppCompatActivity {
             case locationHelper.PERMISSION_REQUEST_CODE: {
                 if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    onLocationPermissionGranted();
+                    //onLocationPermissionGranted();
                 }
                 else{ // if permissions were denied
                     Log.v(this.getClass().getName(), "Location access denied");
@@ -102,7 +107,7 @@ public class appMainPage extends AppCompatActivity {
             }
         }
     }
-
+/*
     private void onLocationPermissionGranted(){
         Log.v(this.getClass().getName(), locHelper.getCurrentCountry());
         if (locHelper.getCurrentCountry().equals("US")){
@@ -112,5 +117,5 @@ public class appMainPage extends AppCompatActivity {
         intent.putExtra(DelayedMessageService.EXTRA_MESSAGE, locHelper.getCurrentState());
         //Toast.makeText(this, "toast test", Toast.LENGTH_SHORT).show();
         startService(intent);
-    }
+    }*/
 }

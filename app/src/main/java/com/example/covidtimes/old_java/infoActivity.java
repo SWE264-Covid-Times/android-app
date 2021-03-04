@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,8 +17,9 @@ public class infoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info);
-
+        //setContentView(R.layout.activity_info);
+        setContentView(R.layout.about_fragment);
+        Log.v("infoActivity", "infoActivity.java");
         TextView tv = findViewById(R.id.tvInfo_JHULink);
         tv.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -27,6 +29,7 @@ public class infoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent statIntent = new Intent(getApplicationContext(), StatsActivity.class);
                 startActivity(statIntent);
+
             }
         });
     }
