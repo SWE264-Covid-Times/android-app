@@ -43,4 +43,7 @@
     <string name="notif_title">Stay up-to-date with Covid-Times</string>
     <string name="notif_text">Click to see the latest stats</string>
 
+    <string name="pref_file_name">pref_file_name</string>
+    <string name="pref_user_name">pref_user_name</string>
+
 </resources>

@@ -3,12 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.history.HistoryFragment">
 
     <TextView
+        android:id="@+id/historyTitleTextView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        android:text="History of your searches"
+        android:layout_marginTop="45dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/historyRecycler"
+        android:layout_width = "match_parent"
+        android:layout_marginTop="75dp"
+        android:layout_height = "match_parent"
+        app:layout_constraintTop_toBottomOf="@id/historyTitleTextView"
+        />
 
 </FrameLayout>
 

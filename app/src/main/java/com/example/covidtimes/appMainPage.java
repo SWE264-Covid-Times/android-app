@@ -2,8 +2,11 @@
 
 package com.example.covidtimes;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +25,14 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class appMainPage extends AppCompatActivity {
 
@@ -51,6 +62,7 @@ public class appMainPage extends AppCompatActivity {
 //            }
 //        });
 
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -62,12 +74,10 @@ public class appMainPage extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-/*
-        locHelper = new locationHelper(this);
-        if (locHelper.askPermissions()){
-            onLocationPermissionGranted();
-        }*/
 
+        handleSharedPrefs();
+        locHelper = new locationHelper(this, appMainPage::onLocationPermissionGranted);
+        locHelper.handlePermissions();
     }
 
     @Override
@@ -88,34 +98,72 @@ public class appMainPage extends AppCompatActivity {
     public void onClickConfirm(View view) {
         Log.v("appMainPage", "login?");
     }
-
+/*
     public void aboutOnClick(View view){
         AboutFragment.aboutClick(view);
-    }
+    }*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+        Log.d("MyDebugger", "onRequestPermissionResult: " + requestCode);
         switch(requestCode){
             case locationHelper.PERMISSION_REQUEST_CODE: {
                 if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    //onLocationPermissionGranted();
+                    locHelper.handlePermissions();
                 }
                 else{ // if permissions were denied
-                    Log.v(this.getClass().getName(), "Location access denied");
+                    Log.d("MyDebugger", "Location access denied");
                 }
             }
         }
     }
-/*
-    private void onLocationPermissionGranted(){
-        Log.v(this.getClass().getName(), locHelper.getCurrentCountry());
-        if (locHelper.getCurrentCountry().equals("US")){
-            Log.v(this.getClass().getName(), locHelper.getCurrentState());
-        }
-        Intent intent = new Intent(this, DelayedMessageService.class);
-        intent.putExtra(DelayedMessageService.EXTRA_MESSAGE, locHelper.getCurrentState());
+
+    private static void onLocationPermissionGranted(Address a, Context c){
+        Log.d("MyDebugger", locationHelper.getCurrentCounty(a));
+//        if (locHelper.getCurrentCountry().equals("US")){
+//            Log.v(this.getClass().getName(), locHelper.getCurrentState());
+//        }
+        Intent intent = new Intent(c, DelayedMessageService.class);
+        intent.putExtra(DelayedMessageService.EXTRA_MESSAGE, locationHelper.getCurrentState(a));
         //Toast.makeText(this, "toast test", Toast.LENGTH_SHORT).show();
-        startService(intent);
-    }*/
+        c.startService(intent);
+        //Log.d("MyDebugger", Boolean.toString(locHelper.locManager != null));
+    }
+
+
+    private void handleSharedPrefs(){
+        SharedPreferences sf = this.getSharedPreferences(getString(R.string.pref_file_name), Context.MODE_PRIVATE);
+        resetPrefs(sf);
+        String name = sf.getString(getString(R.string.pref_user_name), null);
+        if (name == null){
+            SharedPreferences.Editor editor = sf.edit();
+            editor.putString(getString(R.string.pref_user_name), UUID.randomUUID().toString());
+            editor.apply();
+            Retrofit retrofit = new Retrofit.Builder().baseUrl(HistoryAPIService.BASE_HISTORY_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            HistoryAPIService historyApiService = retrofit.create(HistoryAPIService.class);
+            Call<historyUser> call = historyApiService.createUser(new historyUser(name));
+            call.enqueue(new Callback<historyUser>(){
+                @Override
+                public void onResponse(Call<historyUser> call, Response<historyUser> response){
+                    Log.w("MyDebugger", response.toString());
+                }
+                @Override
+                public void onFailure(Call<historyUser> call, Throwable t){
+                    Log.d("MyDebugger", t.toString());
+                }
+            });
+        }
+    }
+
+    private void resetPrefs(SharedPreferences sp){
+        SharedPreferences.Editor e = sp.edit();
+        e.clear();
+        e.commit();
+    }
+
+
+
 }

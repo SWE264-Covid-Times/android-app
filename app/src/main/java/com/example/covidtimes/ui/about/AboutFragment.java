@@ -33,7 +33,14 @@ public class AboutFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         Log.v("aboutFragment", "inside AboutFragment.java");
         rootView = inflater.inflate(R.layout.about_fragment, container, false);
-        return inflater.inflate(R.layout.about_fragment, container, false);
+        Button infoExpButton = (Button)rootView.findViewById(R.id.btnInfo_Exp);
+        infoExpButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Log.d("MyDebugger", "inside onclick");
+            }
+        });
+        return rootView;
     }
 
 
