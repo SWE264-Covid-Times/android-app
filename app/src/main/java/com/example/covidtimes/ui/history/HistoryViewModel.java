@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.covidtimes.HistoryAPIService;
 import com.example.covidtimes.historyStats;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,8 +43,16 @@ public class HistoryViewModel extends ViewModel {
         call.enqueue(new Callback<List<historyStats>>(){
             @Override
             public void onResponse(Call<List<historyStats>> call, Response<List<historyStats>> response){
-                Log.w("MyDebugger", "onResponse histories");
-                histories.setValue(response.body());
+                Log.d("MyDebugger", response.toString());
+                if (response.body() == null){
+                    List<historyStats> nullStats = new ArrayList<>();
+                    nullStats.add(new historyStats("ERROR", "Something went wrong", "Response message",
+                            response.message(), response.code()));
+                    histories.setValue(nullStats);
+                }
+                else{
+                    histories.setValue(response.body());
+                }
             }
             @Override
             public void onFailure(Call<List<historyStats>> call, Throwable t){

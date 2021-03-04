@@ -1,5 +1,6 @@
 package com.example.covidtimes;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +27,13 @@ public class historyListAdapter extends RecyclerView.Adapter<historyListAdapter.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_row, parent, false);
+        Log.d("MyDebugger", "view status: " + (view != null));
         return new ViewHolder(view);
     }
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
         historyStats currentHistory = mData.get(position);
-        holder.historyCaseCount.setText(currentHistory.getCaseCount());
+        holder.historyCaseCount.setText(Integer.toString(currentHistory.getCaseCount()));
         holder.historySearchTerm.setText(currentHistory.getSearchTerm());
         holder.historyDateRange.setText(currentHistory.getFromDate() + " - " + currentHistory.getToDate());
     }
