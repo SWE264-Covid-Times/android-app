@@ -20,10 +20,10 @@ public class dateStringHelper {
     public static String getStateQueryableDate(String year, String month, String day){
         return addDashes(year, month, day) + default_state_time;
     }
-    public static String getCurrentStateQueryableDate(){
+    public static String getCurrentStateQueryableDate(int offset){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
-        c.add(Calendar.DATE, -1);
+        c.add(Calendar.DATE, offset * -1);
         String date = sdf.format(c.getTime());
         return date + default_state_time;
     }

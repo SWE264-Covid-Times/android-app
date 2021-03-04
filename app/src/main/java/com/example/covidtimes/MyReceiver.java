@@ -18,12 +18,14 @@ public class MyReceiver extends BroadcastReceiver {
     private static Retrofit retrofit = null;
     private Context context;
     private String state;
+    private int offset;
 
     @Override
     public void onReceive(Context c, Intent i){
         //Toast.makeText(c, "New cases: " , Toast.LENGTH_LONG).show();
         context = c;
         state = i.getStringExtra(DelayedMessageService.EXTRA_MESSAGE);
+        offset = 1;
         connect();
     }
     private void connect(){
@@ -44,7 +46,9 @@ public class MyReceiver extends BroadcastReceiver {
                     Toast.makeText(context, "New cases: "  + stat.getNewCase(), Toast.LENGTH_LONG).show();
                 }
                 else{
-                    Toast.makeText(context, "No updates found", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "No updates found", Toast.LENGTH_SHORT).show();
+                    offset++;
+                    connect();
                 }
             }
             @Override
@@ -54,6 +58,6 @@ public class MyReceiver extends BroadcastReceiver {
         });
     }
     private String getDate(){
-        return dateStringHelper.getCurrentStateQueryableDate();
+        return dateStringHelper.getCurrentStateQueryableDate(offset);
     }
 }

@@ -23,7 +23,7 @@ public class DelayedMessageService extends IntentService {
     @Override protected void onHandleIntent(Intent intent){
         synchronized(this){
             try{
-                wait(1000);//change this wait timeout value later
+                wait(10000);//change this wait timeout value later
             } catch(InterruptedException e){
                 e.printStackTrace();
             }

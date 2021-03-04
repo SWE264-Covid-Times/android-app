@@ -85,7 +85,7 @@ public class locationHelper{
             try{
                 result = g.getFromLocation(lastKnown.getLatitude(), lastKnown.getLongitude(), 1);
             } catch (IOException e){
-                Log.v("locationHelper", "IOException from getFomLocaiton");
+                Log.v("locationHelper", "IOException from getFomLocation");
             }
         }
         else{
