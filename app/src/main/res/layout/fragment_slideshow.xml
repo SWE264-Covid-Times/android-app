@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:background="#00BCD4">
+            android:background="#152724">
 
             <TextView
                 android:id="@+id/textGrid"
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:fontFamily="sans-serif-smallcaps"
-                android:text="PREVENTIONS"
+                android:text="CovidTimes"
                 android:textAlignment="center"
                 android:textColor="#F3EDEF"
                 android:textSize="24sp"
@@ -39,9 +39,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:fontFamily="sans-serif-condensed-light"
+                android:linksClickable="true"
                 android:text="@string/info_CDC_LINK"
                 android:textAlignment="center"
-                android:textColor="#F3EDEF"
+                android:textColor="#F8F2F4"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </RelativeLayout>

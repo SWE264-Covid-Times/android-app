@@ -9,11 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.covidtimes.R;
 import com.example.covidtimes.StatsActivity;
@@ -27,6 +29,7 @@ public class AboutFragment extends Fragment {
     }
 
     private View rootView;
+    private TextView jhuLink;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -40,6 +43,8 @@ public class AboutFragment extends Fragment {
                 Log.d("MyDebugger", "inside onclick");
             }
         });
+        jhuLink = rootView.findViewById(R.id.tvInfo_JHULink);
+        jhuLink.setMovementMethod(LinkMovementMethod.getInstance());
         return rootView;
     }
 

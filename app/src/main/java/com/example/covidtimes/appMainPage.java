@@ -8,10 +8,12 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.covidtimes.ui.about.AboutFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,6 +28,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import org.w3c.dom.Text;
+
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -38,6 +42,7 @@ public class appMainPage extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private locationHelper locHelper;
+    private TextView cdc_link;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +67,6 @@ public class appMainPage extends AppCompatActivity {
 //            }
 //        });
 
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -78,6 +82,8 @@ public class appMainPage extends AppCompatActivity {
         handleSharedPrefs();
         locHelper = new locationHelper(this, appMainPage::onLocationPermissionGranted);
         locHelper.handlePermissions();
+        //cdc_link = findViewById(R.id.textGrid1);
+        //cdc_link.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override

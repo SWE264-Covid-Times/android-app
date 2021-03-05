@@ -1,6 +1,8 @@
 package com.example.covidtimes.ui.slideshow;
 
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +16,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.covidtimes.R;
 
+import org.w3c.dom.Text;
+
 public class SlideshowFragment extends Fragment {
 
     private SlideshowViewModel slideshowViewModel;
+    TextView cdc_link;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -30,6 +35,9 @@ public class SlideshowFragment extends Fragment {
 //                textView.setText(s);
 //            }
  //       });
+        Log.v("SlideshowFragment:", "in onCreateView");
+        cdc_link = root.findViewById(R.id.textGrid1);
+        cdc_link.setMovementMethod(LinkMovementMethod.getInstance());
         return root;
     }
 }
