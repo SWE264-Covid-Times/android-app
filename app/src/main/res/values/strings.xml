@@ -45,5 +45,10 @@
 
     <string name="pref_file_name">pref_file_name</string>
     <string name="pref_user_name">pref_user_name</string>
+    <string name="detected_loc">Your detected state: </string>
+    <string name="total_cases">Total cases: </string>
+    <string name="new_cases">New cases: </string>
+    <string name="total_deaths">Total deaths: </string>
+    <string name="new_deaths">New deaths: </string>
 
 </resources>

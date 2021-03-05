@@ -38,18 +38,55 @@
         app:layout_constraintTop_toBottomOf="@+id/tvInfo_appName" />
 
     <!--android:onClick= "aboutOnClick"-->
-    <Button
+    <TextView
         android:id="@+id/btnInfo_Exp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="95dp"
         android:layout_marginBottom="300dp"
-        android:text="about_fragment"
+        android:text="Detecting location..."
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.532"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvInfo_JHULink" />
+    <TextView
+        android:id="@+id/stateStatdetail1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding = "10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnInfo_Exp"
+        app:layout_constraintHorizontal_bias="0.532"/>
+    <TextView
+        android:id="@+id/stateStatdetail2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding = "10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stateStatdetail1"
+        app:layout_constraintHorizontal_bias="0.532"/>
+    <TextView
+        android:id="@+id/stateStatdetail3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding = "10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stateStatdetail2"
+        app:layout_constraintHorizontal_bias="0.532"/>
+    <TextView
+        android:id="@+id/stateStatdetail4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding = "10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stateStatdetail3"
+        app:layout_constraintHorizontal_bias="0.532"/>
 
     <TextView
         android:id="@+id/tvInfo_desc"

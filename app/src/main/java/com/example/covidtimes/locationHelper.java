@@ -75,7 +75,6 @@ public class locationHelper{
                 @Override
                 public void onLocationChanged(Location location){
                     lastKnown = location;
-                    Log.d("MyDebugger", "location fetched");
                     locManager.removeUpdates(this);
                     Geocoder g = new Geocoder(context);
                     List<Address> result = new ArrayList<>();

@@ -104,10 +104,7 @@ public class appMainPage extends AppCompatActivity {
     public void onClickConfirm(View view) {
         Log.v("appMainPage", "login?");
     }
-/*
-    public void aboutOnClick(View view){
-        AboutFragment.aboutClick(view);
-    }*/
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
@@ -126,15 +123,9 @@ public class appMainPage extends AppCompatActivity {
     }
 
     private static void onLocationPermissionGranted(Address a, Context c){
-        Log.d("MyDebugger", locationHelper.getCurrentCounty(a));
-//        if (locHelper.getCurrentCountry().equals("US")){
-//            Log.v(this.getClass().getName(), locHelper.getCurrentState());
-//        }
         Intent intent = new Intent(c, DelayedMessageService.class);
         intent.putExtra(DelayedMessageService.EXTRA_MESSAGE, locationHelper.getCurrentState(a));
-        //Toast.makeText(this, "toast test", Toast.LENGTH_SHORT).show();
         c.startService(intent);
-        //Log.d("MyDebugger", Boolean.toString(locHelper.locManager != null));
     }
 
 
@@ -145,7 +136,7 @@ public class appMainPage extends AppCompatActivity {
         if (name == null){
             SharedPreferences.Editor editor = sf.edit();
             editor.putString(getString(R.string.pref_user_name), UUID.randomUUID().toString());
-            editor.apply();
+            editor.commit();
             Retrofit retrofit = new Retrofit.Builder().baseUrl(HistoryAPIService.BASE_HISTORY_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
