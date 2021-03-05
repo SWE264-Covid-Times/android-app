@@ -3,4 +3,5 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">covidtimes-env.eba-yjpbhcys.us-east-2.elasticbeanstalk.com</domain>
     </domain-config>
+
 </network-security-config>

@@ -37,7 +37,6 @@ public class HistoryViewModel extends ViewModel {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
-        Log.d("MyDebugger", "UUID: "+name);
         HistoryAPIService historyApiService = retrofit.create(HistoryAPIService.class);
         Call<List<historyStats>> call = historyApiService.getHistory(name);
         call.enqueue(new Callback<List<historyStats>>(){

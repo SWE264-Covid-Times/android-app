@@ -57,13 +57,6 @@ public class AboutFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         Log.v("aboutFragment", "inside AboutFragment.java");
         rootView = inflater.inflate(R.layout.about_fragment, container, false);
-        /*Button infoExpButton = (Button)rootView.findViewById(R.id.btnInfo_Exp);
-        infoExpButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Log.d("MyDebugger", "inside onclick");
-            }
-        });*/
         jhuLink = rootView.findViewById(R.id.tvInfo_JHULink);
         jhuLink.setMovementMethod(LinkMovementMethod.getInstance());
         return rootView;
@@ -108,7 +101,6 @@ public class AboutFragment extends Fragment {
                             }
                             if (result.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
                                 updateTextViews(locationHelper.getCurrentState(result.get(0)));
-                                //consumer.accept(result.get(0), context);
                             }
                         }
                         @Override public void onStatusChanged(String provider, int status, Bundle extras){}

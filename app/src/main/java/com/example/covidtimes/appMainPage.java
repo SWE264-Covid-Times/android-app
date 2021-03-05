@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -28,10 +29,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.util.Map;
 import java.util.UUID;
 
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -135,17 +140,36 @@ public class appMainPage extends AppCompatActivity {
         String name = sf.getString(getString(R.string.pref_user_name), null);
         if (name == null){
             SharedPreferences.Editor editor = sf.edit();
-            editor.putString(getString(R.string.pref_user_name), UUID.randomUUID().toString());
+            name = UUID.randomUUID().toString();
+            editor.putString(getString(R.string.pref_user_name), name);
             editor.commit();
             Retrofit retrofit = new Retrofit.Builder().baseUrl(HistoryAPIService.BASE_HISTORY_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
             HistoryAPIService historyApiService = retrofit.create(HistoryAPIService.class);
+            /*
+            Map<String, String> jsonParams = new ArrayMap<>();
+            jsonParams.put("name", name);
+            RequestBody body = RequestBody.create((new JSONObject(jsonParams)).toString(),
+                    okhttp3.MediaType.parse("application/json; charset=utf-8")
+                    );
+            Call<ResponseBody> call = historyApiService.createUser(body);
+            call.enqueue(new Callback<ResponseBody>(){
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse){
+                    Log.d("MyDebugger", rawResponse.toString());
+                }
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t){
+                    Log.d("MyDebugger", t.toString());
+                }
+            });*/
+
             Call<historyUser> call = historyApiService.createUser(new historyUser(name));
             call.enqueue(new Callback<historyUser>(){
                 @Override
                 public void onResponse(Call<historyUser> call, Response<historyUser> response){
-                    Log.w("MyDebugger", response.toString());
+                    Log.d("MyDebugger", response.toString());
                 }
                 @Override
                 public void onFailure(Call<historyUser> call, Throwable t){
