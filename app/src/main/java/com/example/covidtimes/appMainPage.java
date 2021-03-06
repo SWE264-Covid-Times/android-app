@@ -136,7 +136,7 @@ public class appMainPage extends AppCompatActivity {
 
     private void handleSharedPrefs(){
         SharedPreferences sf = this.getSharedPreferences(getString(R.string.pref_file_name), Context.MODE_PRIVATE);
-        resetPrefs(sf);
+        //resetPrefs(sf);
         String name = sf.getString(getString(R.string.pref_user_name), null);
         if (name == null){
             SharedPreferences.Editor editor = sf.edit();

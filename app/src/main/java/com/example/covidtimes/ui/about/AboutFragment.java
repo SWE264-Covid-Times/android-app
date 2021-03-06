@@ -55,7 +55,6 @@ public class AboutFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        Log.v("aboutFragment", "inside AboutFragment.java");
         rootView = inflater.inflate(R.layout.about_fragment, container, false);
         jhuLink = rootView.findViewById(R.id.tvInfo_JHULink);
         jhuLink.setMovementMethod(LinkMovementMethod.getInstance());
@@ -81,7 +80,6 @@ public class AboutFragment extends Fragment {
             title.setText("Permission denied");
         }
         else{
-            Log.d("MyDebugger", "fetchUserLocation");
             Context context = getActivity();
             LocationManager locManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
             locManager.requestLocationUpdates(locManager.getBestProvider(new Criteria(), true),
@@ -90,7 +88,6 @@ public class AboutFragment extends Fragment {
                         @Override
                         public void onLocationChanged(Location location){
                             Location lastKnown = location;
-                            Log.d("MyDebugger", "location fetched in AboutFragment");
                             locManager.removeUpdates(this);
                             Geocoder g = new Geocoder(context);
                             List<Address> result = new ArrayList<>();

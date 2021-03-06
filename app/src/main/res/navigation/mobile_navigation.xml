@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_login"
         android:name="com.example.covidtimes.ui.login.LoginFragment"
-        android:label="@string/menu_login"
+        android:label="@string/menu_vac"
         tools:layout="@layout/fragment_login" />
 
     <fragment
