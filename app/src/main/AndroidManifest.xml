@@ -13,21 +13,23 @@
         android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:theme="@style/Theme.CovidTimes.NoActionBar">
-        <activity android:name=".stats_two_countries"></activity>
-         <activity android:name=".appMainPage">
-         <intent-filter>
-         <action android:name="android.intent.action.MAIN" />
-         <category android:name="android.intent.category.LAUNCHER" />
-         </intent-filter> </activity>
-         <activity android:name=".StatsActivity" />
+
+        <activity android:name=".appMainPage">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".StatsActivity" />
+
         <activity android:name=".infoActivity" />
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".GuidelinesActivity" />
 
         <service android:name=".DelayedMessageService" />
-
         <receiver android:name=".MyReceiver" />
 
+<!--   used for StatsActivity testing -->
 <!--        <activity android:name=".StatsActivity">-->
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->

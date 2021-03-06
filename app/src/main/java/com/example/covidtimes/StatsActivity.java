@@ -79,7 +79,7 @@ public class StatsActivity extends AppCompatActivity {
         Spinner spCountry = (Spinner) findViewById(R.id.spCountry);
         String raw_country = String.valueOf(spCountry.getSelectedItem());
         country = allCountrySlug.getSlug(raw_country);
-        System.out.println(raw_country + " - " + country);
+        System.out.println("[StatsActivity.onClickConfirm] " + raw_country + " - " + country);
 
         EditText etFromDate = (EditText) findViewById(R.id.etFromDate);
         String raw_from_date = etFromDate.getText().toString();
@@ -96,15 +96,12 @@ public class StatsActivity extends AppCompatActivity {
                     raw_from_date.substring(6, 8));
 
             // create a new to_date with range of a week
-            System.out.println("String " + raw_from_date);
-            System.out.println("Integer " + Integer.parseInt(raw_from_date));
             String raw_to_date = Integer.toString(Integer.parseInt(raw_from_date) + 6);
-            System.out.println(raw_to_date);
             to_date = dateStringHelper.getQueryableDate(
                     raw_to_date.substring(0, 4),
                     raw_to_date.substring(4, 6),
                     raw_to_date.substring(6, 8));
-            System.out.println("from " + from_date + " " + "to " + to_date);
+            System.out.println("[StatsActivity.onClickConfirm] from " + from_date + " " + "to " + to_date);
 
             // let user to enter a to_date
             //        EditText etToDate = (EditText) findViewById(R.id.etToDate);
@@ -117,7 +114,7 @@ public class StatsActivity extends AppCompatActivity {
 
             connect();
         } else {
-            reminder = "Make sure to follow YYYYMMDD format\n Only number allowed";
+            reminder = "Make sure to follow YYYYMMDD format\nOnly number allowed";
             Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
             toast.show();
             System.out.println(reminder);
@@ -135,24 +132,15 @@ public class StatsActivity extends AppCompatActivity {
         }
         StatsAPIService statsApiService = retrofit.create(StatsAPIService.class);
         Call<List<CountrySlugInfo>> call = statsApiService.getCountrySlug();
-        System.out.println("yo3");
-        System.out.println(call);
         call.enqueue(new Callback<List<CountrySlugInfo>>() {
             @Override
             public void onResponse(Call<List<CountrySlugInfo>> call, Response<List<CountrySlugInfo>> response) {
-
-                System.out.println("yo4");
                 List<CountrySlugInfo> statsInfo = response.body();
-
-//                for (CountrySlugInfo csc : statsInfo)
-//                    System.out.println(csc.getCountry());
-//                System.out.println("here: " + statsInfo);
                 if (statsInfo != null) {
-                    System.out.println("here");
                     allCountrySlug = new AllCountrySlug(statsInfo);
-
-                    for (String key: allCountrySlug.getCountrySlugPairs().keySet())
-                    System.out.println(key);
+                    System.out.println("[StatsActivity.loadCountries] " + allCountrySlug);
+//                    for (String key: allCountrySlug.getCountrySlugPairs().keySet())
+//                        System.out.println(key);
                 } else {
                     reminder = "Not able to connect to server";
                     Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
@@ -197,7 +185,6 @@ public class StatsActivity extends AppCompatActivity {
                     android.R.layout
                             .simple_spinner_dropdown_item);
             spSecondCountry.setAdapter(adSecondCountry);
-
         }
     }
 
@@ -215,17 +202,25 @@ public class StatsActivity extends AppCompatActivity {
             public void onResponse(Call<List<CountryStatsInfo>> call, Response<List<CountryStatsInfo>> response) {
 
                 List<CountryStatsInfo> statsInfo = response.body();
-//                System.out.println("country: " + country + " from_date: " +from_date + " to_date: "+to_date+ " call: "+call);
-//                System.out.println("here " + statsInfo);
-//                System.out.println("here " + statsInfo.get(0));
-//                System.out.println("here " + statsInfo.get(0).getCountry());
+                System.out.println("[StatsActivity.connect]");
+                System.out.println("country: " + country + " from_date: " +from_date + " to_date: "+to_date+ " call: "+call);
+                System.out.println("here " + statsInfo);
+                System.out.println("here " + statsInfo.isEmpty());
                 if (statsInfo != null) {
-                    recyclerView = findViewById(R.id.rvStatsList);
-                    recyclerView.setHasFixedSize(true);
-                    recyclerView.setLayoutManager(linearLayoutManager);
-                    recyclerView.setAdapter(new StatsListAdapter(statsInfo));
+                    if (statsInfo.isEmpty()){
+                        reminder = "No data found\nTry another country or data";
+                        Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
+                        toast.show();
+                        System.out.println(reminder);
+                        reminder = null;
+                    } else {
+                        recyclerView = findViewById(R.id.rvStatsList);
+                        recyclerView.setHasFixedSize(true);
+                        recyclerView.setLayoutManager(linearLayoutManager);
+                        recyclerView.setAdapter(new StatsListAdapter(statsInfo));
+                    }
                 } else {
-                    reminder = "Invalid Search:D\n No Info";
+                    reminder = "Invalid Search:D\nNo Info";
                     Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
                     toast.show();
                     System.out.println(reminder);
