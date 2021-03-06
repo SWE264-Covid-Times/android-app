@@ -6,13 +6,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -20,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,7 +87,7 @@ public class LoginFragment extends Fragment {
                             try{
                                 result = g.getFromLocation(lastKnown.getLatitude(), lastKnown.getLongitude(), 1);
                             } catch (IOException e){
-                                Log.v("locationHelper", "IOException from getFomLocation");
+                                Log.v("locationHelper", e.toString());
                             }
                             if (result.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
                                 updateTextViews(result.get(0));
@@ -97,20 +101,61 @@ public class LoginFragment extends Fragment {
     }
 
     private void updateTextViews(Address userLoc){
+        TextView title = rootView.findViewById(R.id.editTextTextPersonName3);
+        title.setText(getString(R.string.display_detected_loc) + " " + userLoc.getSubAdminArea());
+        TextView title2 = rootView.findViewById(R.id.text3);
+        title2.setText(getString(R.string.display_detected_zip) + " " + userLoc.getPostalCode());
         mViewModel.getVacStats(userLoc).observe(getViewLifecycleOwner(), vacStats->{
             if (vacStats == null){
                 Log.d("MyDebugger", "County not in DB");
+                ((TextView)rootView.findViewById(R.id.checkBox3)).setText(getString(R.string.doses_no_county));
             }
             else{
                 Log.d("MyDebugger", "DosesAdmin: " + vacStats.getDoses_administered());
+                ((TextView)rootView.findViewById(R.id.checkBox3)).setText(
+                        getString(R.string.doses_admined) + " " + vacStats.getDoses_administered()
+                );
+                ((TextView)rootView.findViewById(R.id.text1)).setText(
+                        getString(R.string.doses_new) + " " + vacStats.getNew_doses_administered()
+                );
+                ((TextView)rootView.findViewById(R.id.text2)).setText(
+                        getString(R.string.updated_date) + " " + vacStats.getDate()
+                );
             }
         });
         mViewModel.getVacProvInfo(userLoc).observe(getViewLifecycleOwner(), vacProv ->{
             if (vacProv == null){ //zip not in db
-                Log.d("MyDebugger", "zip not in db");
+                ((TextView)rootView.findViewById(R.id.text4)).setText(
+                        getString(R.string.doses_admined)
+                );
             }
             else{
-                Log.d("MyDebugger", vacProv.getAddress());
+                ((TextView)rootView.findViewById(R.id.text4)).setText(
+                        getString(R.string.vac_prov_phone)
+                );
+                TextView vac_phone = rootView.findViewById(R.id.text8);
+                vac_phone.setText(vacProv.getPhone());
+                Linkify.addLinks(vac_phone, Linkify.PHONE_NUMBERS);
+                ((TextView)rootView.findViewById(R.id.text5)).setText(
+                        getString(R.string.vac_prov_name) + " " + vacProv.getProvider()
+                );
+                ((TextView)rootView.findViewById(R.id.text6)).setText(
+                        getString(R.string.vac_prov_add)
+                );
+                TextView vac_addy = rootView.findViewById(R.id.text7);
+                vac_addy.setText(vacProv.getAddress());
+                vac_addy.setTextColor(Color.rgb(6,69,173));
+                vac_addy.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        Uri gmmIntentUri = Uri.parse("geo:"
+                            +userLoc.getLatitude()+ ","
+                            +userLoc.getLongitude() + "?q="
+                            +vacProv.getAddress());
+                        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                        startActivity(mapIntent);
+                    }
+                });
             }
         });
     }
