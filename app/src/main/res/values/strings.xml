@@ -50,5 +50,17 @@
     <string name="new_cases">New cases: </string>
     <string name="total_deaths">Total deaths: </string>
     <string name="new_deaths">New deaths: </string>
+    <string name="load_local">Detecting Local Info...</string>
+    <string name="display_detected_loc">Detected Location:</string>
+    <string name="display_detected_zip">Detected Zip:</string>
+    <string name="doses_admined">Total Doses:</string>
+    <string name="doses_new">New Doses:</string>
+    <string name="updated_date">Updated:</string>
+    <string name="doses_no_county">County stats not available</string>
+    <string name="vac_prov_phone">"Vaccine Provider Phone:"</string>
+    <string name="vac_prov_name">"Vaccine Provider Name:"</string>
+    <string name="vac_prov_add">"Vaccine Provider Address:"</string>
+
+
 
 </resources>

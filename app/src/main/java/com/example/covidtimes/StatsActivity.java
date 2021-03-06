@@ -45,9 +45,8 @@ public class StatsActivity extends AppCompatActivity {
 
     private boolean loadSecondCountryLayout = false;
 
-    //testing
-    List<CountryStatsInfo> firstCountryStatsInfo = null;
-    List<CountryStatsInfo> secondCountryStatsInfo = null;
+    private List<CountryStatsInfo> firstCountryStatsInfo = null;
+    private List<CountryStatsInfo> secondCountryStatsInfo = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
