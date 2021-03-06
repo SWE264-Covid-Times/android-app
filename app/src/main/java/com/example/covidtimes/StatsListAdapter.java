@@ -35,6 +35,13 @@ public class StatsListAdapter extends RecyclerView.Adapter<StatsListAdapter.View
         TextView tvActive;
         TextView tvDate;
 
+        TextView tvCountry2;
+        TextView tvConfirmed2;
+        TextView tvDeaths2;
+        TextView tvRecovered2;
+        TextView tvActive2;
+        TextView tvDate2;
+
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -44,12 +51,21 @@ public class StatsListAdapter extends RecyclerView.Adapter<StatsListAdapter.View
             tvRecovered = itemView.findViewById(R.id.tvRecovered);
             tvActive = itemView.findViewById(R.id.tvActive);
             tvDate = itemView.findViewById(R.id.tvDate);
+
+
+            tvCountry2 = itemView.findViewById(R.id.tvCountry2);
+            tvConfirmed2 = itemView.findViewById(R.id.tvConfirmed2);
+            tvDeaths2 = itemView.findViewById(R.id.tvDeaths2);
+            tvRecovered2 = itemView.findViewById(R.id.tvRecovered2);
+            tvActive2 = itemView.findViewById(R.id.tvActive2);
+            tvDate2 = itemView.findViewById(R.id.tvDate2);
+
         }
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.stats_list_adapter, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.stats_list_adapter2, parent, false);
         return new ViewHolder(view);
     }
 
@@ -57,13 +73,28 @@ public class StatsListAdapter extends RecyclerView.Adapter<StatsListAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (hasTwoCountries) {
             CountryStatsInfo firstCountryStatsInfoInput = firstCountryStatsInfo.get(position);
+//            holder.tvCountry.setText(firstCountryStatsInfoInput.getCountry() +  " " + secondCountryStatsInfoInput.getCountry());
+//            holder.tvConfirmed.setText("Confirmed: " + firstCountryStatsInfoInput.getConfirmed().toString() + " " + secondCountryStatsInfoInput.getConfirmed().toString());
+//            holder.tvDeaths.setText("Deaths: " + firstCountryStatsInfoInput.getDeaths().toString() + " " + secondCountryStatsInfoInput.getDeaths().toString());
+//            holder.tvRecovered.setText("Recovered: " + firstCountryStatsInfoInput.getRecovered().toString() + " " + secondCountryStatsInfoInput.getRecovered().toString());
+//            holder.tvActive.setText("Active: " + firstCountryStatsInfoInput.getActive().toString() + " " + secondCountryStatsInfoInput.getActive().toString());
+//            holder.tvDate.setText("Date: " + firstCountryStatsInfoInput.getDate().substring(0,10) + " " + secondCountryStatsInfoInput.getDate().substring(0,10));
+
+            holder.tvCountry.setText(firstCountryStatsInfoInput.getCountry());
+            holder.tvConfirmed.setText("Confirmed: " + firstCountryStatsInfoInput.getConfirmed().toString() );
+            holder.tvDeaths.setText("Deaths: " + firstCountryStatsInfoInput.getDeaths().toString() );
+            holder.tvRecovered.setText("Recovered: " + firstCountryStatsInfoInput.getRecovered().toString());
+            holder.tvActive.setText("Active: " + firstCountryStatsInfoInput.getActive().toString() );
+            holder.tvDate.setText("Date: " + firstCountryStatsInfoInput.getDate().substring(0,10));
+
             CountryStatsInfo secondCountryStatsInfoInput = secondCountryStatsInfo.get(position);
-            holder.tvCountry.setText(firstCountryStatsInfoInput.getCountry() +  " " + secondCountryStatsInfoInput.getCountry());
-            holder.tvConfirmed.setText("Confirmed: " + firstCountryStatsInfoInput.getConfirmed().toString() + " " + secondCountryStatsInfoInput.getConfirmed().toString());
-            holder.tvDeaths.setText("Deaths: " + firstCountryStatsInfoInput.getDeaths().toString() + " " + secondCountryStatsInfoInput.getDeaths().toString());
-            holder.tvRecovered.setText("Recovered: " + firstCountryStatsInfoInput.getRecovered().toString() + " " + secondCountryStatsInfoInput.getRecovered().toString());
-            holder.tvActive.setText("Active: " + firstCountryStatsInfoInput.getActive().toString() + " " + secondCountryStatsInfoInput.getActive().toString());
-            holder.tvDate.setText("Date: " + firstCountryStatsInfoInput.getDate().substring(0,10) + " " + secondCountryStatsInfoInput.getDate().substring(0,10));
+            holder.tvCountry2.setText(secondCountryStatsInfoInput.getCountry());
+            holder.tvConfirmed2.setText("Confirmed: " + secondCountryStatsInfoInput.getConfirmed().toString());
+            holder.tvDeaths2.setText("Deaths: " + secondCountryStatsInfoInput.getDeaths().toString());
+            holder.tvRecovered2.setText("Recovered: " + secondCountryStatsInfoInput.getRecovered().toString());
+            holder.tvActive2.setText("Active: "  + secondCountryStatsInfoInput.getActive().toString());
+            holder.tvDate2.setText("Date: "  + secondCountryStatsInfoInput.getDate().substring(0,10));
+
         } else {
             CountryStatsInfo countryStatsInfo = statsInfo.get(position);
             holder.tvCountry.setText(countryStatsInfo.getCountry());
@@ -77,9 +108,14 @@ public class StatsListAdapter extends RecyclerView.Adapter<StatsListAdapter.View
 
     @Override
     public int getItemCount() {
+        int itemCount;
         if (hasTwoCountries)
-            return firstCountryStatsInfo.size();
+            if (firstCountryStatsInfo.size() >= secondCountryStatsInfo.size())
+                itemCount = firstCountryStatsInfo.size();
+            else
+                itemCount = secondCountryStatsInfo.size();
         else
-            return statsInfo.size();
+            itemCount = statsInfo.size();
+        return itemCount;
     }
 }

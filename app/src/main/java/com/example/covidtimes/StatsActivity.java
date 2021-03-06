@@ -63,10 +63,11 @@ public class StatsActivity extends AppCompatActivity {
         context = this;
 
         // load all the countries from Covid-19 API
-        if (allCountrySlug == null || allCountrySlug.isEmpty())
-            loadCountries();
-        else
-            loadSpinner();
+        loadCountries();
+//        if (allCountrySlug == null || allCountrySlug.isEmpty())
+//            loadCountries();
+//        else
+//            loadSpinner();
     }
 
     private void loadCountries() {
@@ -82,11 +83,16 @@ public class StatsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<CountrySlugInfo>> call, Response<List<CountrySlugInfo>> response) {
                 List<CountrySlugInfo> statsInfo = response.body();
+//                System.out.println("[StatsActivity.loadCountries] " + statsInfo + " statsInfo.isEmpty(): " + statsInfo.isEmpty());
                 if (statsInfo != null) {
                     allCountrySlug = new AllCountrySlug(statsInfo);
                     System.out.println("[StatsActivity.loadCountries] " + allCountrySlug);
 //                    for (String key: allCountrySlug.getCountrySlugPairs().keySet())
 //                        System.out.println(key);
+
+                    // load spinner
+                    System.out.println("[StatsActivity.loadCountries] ready to load spinner" );
+                    loadSpinner();
                 } else {
                     reminder = "Not able to connect to server";
                     Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
@@ -94,9 +100,6 @@ public class StatsActivity extends AppCompatActivity {
                     System.out.println(reminder);
                     reminder = null;
                 }
-
-                // load spinner
-                loadSpinner();
             }
 
             @Override
