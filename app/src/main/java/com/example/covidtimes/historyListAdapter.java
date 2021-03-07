@@ -33,7 +33,7 @@ public class historyListAdapter extends RecyclerView.Adapter<historyListAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
         historyStats currentHistory = mData.get(position);
-        holder.historyCaseCount.setText(Integer.toString(currentHistory.getCaseCount()));
+        holder.historyCaseCount.setText("Case count: " + currentHistory.getCaseCount());
         holder.historySearchTerm.setText(currentHistory.getSearchTerm());
         holder.historyDateRange.setText(currentHistory.getFromDate() + " - " + currentHistory.getToDate());
     }
