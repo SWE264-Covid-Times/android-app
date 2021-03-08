@@ -126,7 +126,7 @@ public class LoginFragment extends Fragment {
         mViewModel.getVacProvInfo(userLoc).observe(getViewLifecycleOwner(), vacProv ->{
             if (vacProv == null){ //zip not in db
                 ((TextView)rootView.findViewById(R.id.text4)).setText(
-                        getString(R.string.doses_admined)
+                        R.string.vac_prov_no
                 );
             }
             else{

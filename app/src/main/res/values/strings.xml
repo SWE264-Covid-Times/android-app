@@ -60,6 +60,7 @@
     <string name="vac_prov_phone">"Vaccine Provider Phone:"</string>
     <string name="vac_prov_name">"Vaccine Provider Name:"</string>
     <string name="vac_prov_add">"Vaccine Provider Address:"</string>
+    <string name="vac_prov_no">Cannot find vaccine provider for zip</string>
 
 
 
