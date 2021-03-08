@@ -72,28 +72,39 @@ public class StatsListAdapter extends RecyclerView.Adapter<StatsListAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (hasTwoCountries) {
-            CountryStatsInfo firstCountryStatsInfoInput = firstCountryStatsInfo.get(position);
-//            holder.tvCountry.setText(firstCountryStatsInfoInput.getCountry() +  " " + secondCountryStatsInfoInput.getCountry());
-//            holder.tvConfirmed.setText("Confirmed: " + firstCountryStatsInfoInput.getConfirmed().toString() + " " + secondCountryStatsInfoInput.getConfirmed().toString());
-//            holder.tvDeaths.setText("Deaths: " + firstCountryStatsInfoInput.getDeaths().toString() + " " + secondCountryStatsInfoInput.getDeaths().toString());
-//            holder.tvRecovered.setText("Recovered: " + firstCountryStatsInfoInput.getRecovered().toString() + " " + secondCountryStatsInfoInput.getRecovered().toString());
-//            holder.tvActive.setText("Active: " + firstCountryStatsInfoInput.getActive().toString() + " " + secondCountryStatsInfoInput.getActive().toString());
-//            holder.tvDate.setText("Date: " + firstCountryStatsInfoInput.getDate().substring(0,10) + " " + secondCountryStatsInfoInput.getDate().substring(0,10));
+            if (position < firstCountryStatsInfo.size()) {
+                CountryStatsInfo firstCountryStatsInfoInput = firstCountryStatsInfo.get(position);
+                holder.tvCountry.setText(firstCountryStatsInfoInput.getCountry());
+                holder.tvConfirmed.setText("Confirmed: " + firstCountryStatsInfoInput.getConfirmed().toString());
+                holder.tvDeaths.setText("Deaths: " + firstCountryStatsInfoInput.getDeaths().toString());
+                holder.tvRecovered.setText("Recovered: " + firstCountryStatsInfoInput.getRecovered().toString());
+                holder.tvActive.setText("Active: " + firstCountryStatsInfoInput.getActive().toString());
+                holder.tvDate.setText("Date: " + firstCountryStatsInfoInput.getDate().substring(0, 10));
+            } else {
+                holder.tvCountry.setText("");
+                holder.tvConfirmed.setText("");
+                holder.tvDeaths.setText("");
+                holder.tvRecovered.setText("");
+                holder.tvActive.setText("");
+                holder.tvDate.setText("");
+            }
 
-            holder.tvCountry.setText(firstCountryStatsInfoInput.getCountry());
-            holder.tvConfirmed.setText("Confirmed: " + firstCountryStatsInfoInput.getConfirmed().toString() );
-            holder.tvDeaths.setText("Deaths: " + firstCountryStatsInfoInput.getDeaths().toString() );
-            holder.tvRecovered.setText("Recovered: " + firstCountryStatsInfoInput.getRecovered().toString());
-            holder.tvActive.setText("Active: " + firstCountryStatsInfoInput.getActive().toString() );
-            holder.tvDate.setText("Date: " + firstCountryStatsInfoInput.getDate().substring(0,10));
-
-            CountryStatsInfo secondCountryStatsInfoInput = secondCountryStatsInfo.get(position);
-            holder.tvCountry2.setText(secondCountryStatsInfoInput.getCountry());
-            holder.tvConfirmed2.setText("Confirmed: " + secondCountryStatsInfoInput.getConfirmed().toString());
-            holder.tvDeaths2.setText("Deaths: " + secondCountryStatsInfoInput.getDeaths().toString());
-            holder.tvRecovered2.setText("Recovered: " + secondCountryStatsInfoInput.getRecovered().toString());
-            holder.tvActive2.setText("Active: "  + secondCountryStatsInfoInput.getActive().toString());
-            holder.tvDate2.setText("Date: "  + secondCountryStatsInfoInput.getDate().substring(0,10));
+            if (position < secondCountryStatsInfo.size()) {
+                CountryStatsInfo secondCountryStatsInfoInput = secondCountryStatsInfo.get(position);
+                holder.tvCountry2.setText(secondCountryStatsInfoInput.getCountry());
+                holder.tvConfirmed2.setText("Confirmed: " + secondCountryStatsInfoInput.getConfirmed().toString());
+                holder.tvDeaths2.setText("Deaths: " + secondCountryStatsInfoInput.getDeaths().toString());
+                holder.tvRecovered2.setText("Recovered: " + secondCountryStatsInfoInput.getRecovered().toString());
+                holder.tvActive2.setText("Active: " + secondCountryStatsInfoInput.getActive().toString());
+                holder.tvDate2.setText("Date: " + secondCountryStatsInfoInput.getDate().substring(0, 10));
+            } else {
+                holder.tvCountry.setText("");
+                holder.tvConfirmed.setText("");
+                holder.tvDeaths.setText("");
+                holder.tvRecovered.setText("");
+                holder.tvActive.setText("");
+                holder.tvDate.setText("");
+            }
 
         } else {
             CountryStatsInfo countryStatsInfo = statsInfo.get(position);

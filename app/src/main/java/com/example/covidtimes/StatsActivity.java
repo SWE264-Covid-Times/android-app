@@ -97,7 +97,7 @@ public class StatsActivity extends AppCompatActivity {
                     reminder = "Not able to connect to server";
                     Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
                     toast.show();
-                    System.out.println(reminder);
+                    System.out.println("[StatsActivity.loadCountries] " + reminder);
                     reminder = null;
                 }
             }
@@ -230,7 +230,7 @@ public class StatsActivity extends AppCompatActivity {
                         reminder = "No data found\nTry another country or data";
                         Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
                         toast.show();
-                        System.out.println(reminder);
+                        System.out.println("[StatsActivity.connectOne] " + reminder);
                         reminder = null;
                     } else {
                         recyclerView = findViewById(R.id.rvStatsList);
@@ -242,7 +242,7 @@ public class StatsActivity extends AppCompatActivity {
                     reminder = "Invalid Search:D\nNo Info";
                     Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
                     toast.show();
-                    System.out.println(reminder);
+                    System.out.println("[StatsActivity.connectOne] " + reminder);
                     reminder = null;
                 }
             }
@@ -272,24 +272,20 @@ public class StatsActivity extends AppCompatActivity {
             public void onResponse(Call<List<CountryStatsInfo>> call, Response<List<CountryStatsInfo>> response) {
 
                 firstCountryStatsInfo = response.body();
-                System.out.println("[StatsActivity.connect] firstCountryStatsInfo: " + firstCountryStatsInfo + "\n" +firstCountryStatsInfo.isEmpty());
-//                System.out.println("[StatsActivity.connectTwo]");
-//                System.out.println("country: " + country + " from_date: " +from_date + " to_date: "+to_date+ " call: "+call);
-//                System.out.println("here " + firstCountryStatsInfo);
-//                System.out.println("here " + firstCountryStatsInfo.isEmpty());
+
                 if (firstCountryStatsInfo != null) {
                     if (firstCountryStatsInfo.isEmpty()){
                         reminder = "No data found\nTry another country or data";
                         Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
                         toast.show();
-                        System.out.println(reminder);
+                        System.out.println("[StatsActivity.connectTwo] firstCountry: " + reminder);
                         reminder = null;
                     }
                 } else {
                     reminder = "Invalid Search:D\nNo Info";
                     Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
                     toast.show();
-                    System.out.println(reminder);
+                    System.out.println("[StatsActivity.connectTwo] firstCountry: " +reminder);
                     reminder = null;
                 }
             }
@@ -317,7 +313,7 @@ public class StatsActivity extends AppCompatActivity {
                         reminder = "No data found\nTry another country or data";
                         Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
                         toast.show();
-                        System.out.println(reminder);
+                        System.out.println("[StatsActivity.connectTwo] secondCountry: "  +reminder);
                         reminder = null;
                     } else {
                         System.out.println("[StatsActivity.connect] start to run recycler");
@@ -330,7 +326,7 @@ public class StatsActivity extends AppCompatActivity {
                     reminder = "Invalid Search:D\nNo Info";
                     Toast toast = Toast.makeText(context, reminder, Toast.LENGTH_SHORT);
                     toast.show();
-                    System.out.println(reminder);
+                    System.out.println("[StatsActivity.connectTwo] secondCountry: " + reminder);
                     reminder = null;
                 }
             }
