@@ -16,11 +16,11 @@ public class StatsListAdapter extends RecyclerView.Adapter<StatsListAdapter.View
     private List<CountryStatsInfo> secondCountryStatsInfo;
 
 
-    StatsListAdapter(List<CountryStatsInfo> statsInfo) {
+    public StatsListAdapter(List<CountryStatsInfo> statsInfo) {
         this.hasTwoCountries = false;
         this.statsInfo = statsInfo;
     }
-    StatsListAdapter(List<CountryStatsInfo> firstCountrysStatsInfo, List<CountryStatsInfo> secondCountrysStatsInfo) {
+    public StatsListAdapter(List<CountryStatsInfo> firstCountrysStatsInfo, List<CountryStatsInfo> secondCountrysStatsInfo) {
         this.hasTwoCountries = true;
         this.firstCountryStatsInfo = firstCountrysStatsInfo;
         this.secondCountryStatsInfo = secondCountrysStatsInfo;
@@ -65,7 +65,13 @@ public class StatsListAdapter extends RecyclerView.Adapter<StatsListAdapter.View
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.stats_list_adapter2, parent, false);
+        View view;
+        if (hasTwoCountries) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.stats_list_adapter2, parent, false);
+        }
+        else{
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.stats_list_adapter, parent, false);
+        }
         return new ViewHolder(view);
     }
 

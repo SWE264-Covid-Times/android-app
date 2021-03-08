@@ -1,5 +1,7 @@
 package com.example.covidtimes;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
@@ -20,6 +22,18 @@ public class dateStringHelper {
     public static String getStateQueryableDate(String year, String month, String day){
         return addDashes(year, month, day) + default_state_time;
     }
+    public static String getQueryableDateOffset(String year, String month, String day, int offset){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, Integer.parseInt(year));
+        c.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+        c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
+        c.add(Calendar.DATE, offset);
+        String date = sdf.format(c.getTime());
+        Log.v( "MyDebugger",sdf.format(c.getTime()));
+        return date + default_time;
+    }
+
     public static String getCurrentStateQueryableDate(int offset){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();

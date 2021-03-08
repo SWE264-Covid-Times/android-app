@@ -47,7 +47,6 @@ public class appMainPage extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private locationHelper locHelper;
-    private TextView cdc_link;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,10 +104,10 @@ public class appMainPage extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-
+/*
     public void onClickConfirm(View view) {
         Log.v("appMainPage", "login?");
-    }
+    }*/
 
 
     @Override
@@ -179,6 +178,7 @@ public class appMainPage extends AppCompatActivity {
         }
     }
 
+    //used for testing/debugging only
     private void resetPrefs(SharedPreferences sp){
         SharedPreferences.Editor e = sp.edit();
         e.clear();
