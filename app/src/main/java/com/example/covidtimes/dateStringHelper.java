@@ -22,6 +22,10 @@ public class dateStringHelper {
     public static String getStateQueryableDate(String year, String month, String day){
         return addDashes(year, month, day) + default_state_time;
     }
+    public static String getDateFromQueryDate(String queryDate){
+        String[] splitStr = queryDate.split("T");
+        return splitStr[0];
+    }
     public static String getQueryableDateOffset(String year, String month, String day, int offset){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();

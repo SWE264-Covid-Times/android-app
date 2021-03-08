@@ -23,6 +23,7 @@ import com.example.covidtimes.historyListAdapter;
 import com.example.covidtimes.historyStats;
 import com.example.covidtimes.historyUser;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -59,6 +60,7 @@ public class HistoryFragment extends Fragment {
             RecyclerView recyclerView = (RecyclerView)rootView.findViewById(R.id.historyRecycler);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            Collections.reverse(histories);
             recyclerView.setAdapter(new historyListAdapter(histories));
         });
     }

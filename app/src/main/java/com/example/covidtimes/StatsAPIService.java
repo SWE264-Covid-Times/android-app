@@ -11,7 +11,7 @@ public interface StatsAPIService {
     String BASE_LIVE_URL = "https://api.covid19api.com/";
 
     // get all cases by case type for a country in given date range
-    @GET("country/{country}")
+    @GET("total/country/{country}")
     Call<List<CountryStatsInfo>> getCasesWithTimeFrame(@Path("country") String country, @Query("from") String fromDate, @Query("to") String toDate);
 
     // get all countries and their slugs

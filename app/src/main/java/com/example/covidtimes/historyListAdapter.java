@@ -35,7 +35,8 @@ public class historyListAdapter extends RecyclerView.Adapter<historyListAdapter.
         historyStats currentHistory = mData.get(position);
         holder.historyCaseCount.setText("Case count: " + currentHistory.getCaseCount());
         holder.historySearchTerm.setText(currentHistory.getSearchTerm());
-        holder.historyDateRange.setText(currentHistory.getFromDate() + " - " + currentHistory.getToDate());
+        //holder.historyDateRange.setText(currentHistory.getFromDate() + " - " + currentHistory.getToDate());
+        holder.historyDateRange.setText(currentHistory.getFromDate());
     }
     @Override
     public int getItemCount(){return mData.size();}

@@ -1,5 +1,7 @@
 package com.example.covidtimes.ui.gallery;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,10 +24,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.covidtimes.AllCountrySlug;
 import com.example.covidtimes.CountryStatsInfo;
+import com.example.covidtimes.HistoryAPIService;
 import com.example.covidtimes.R;
 import com.example.covidtimes.StatsAPIService;
 import com.example.covidtimes.StatsListAdapter;
 import com.example.covidtimes.dateStringHelper;
+import com.example.covidtimes.historyStats;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -42,6 +46,7 @@ public class GalleryFragment extends Fragment {
     private View rootView;
     private AllCountrySlug allCountrySlug;
     static Retrofit retrofit;
+    static Retrofit historyRetrofit;
     private String country= "";
     private String secondCountry = null;
     private String from_date = "";
@@ -145,15 +150,6 @@ public class GalleryFragment extends Fragment {
                             raw_to_date.substring(4, 6),
                             raw_to_date.substring(6, 8), 6);
                     Log.d("MyDebugger", to_date);
-
-                    // let user to enter a to_date
-                    //        EditText etToDate = (EditText) findViewById(R.id.etToDate);
-                    //        String raw_to_date = etToDate.getText().toString();
-                    //        to_date = dateStringHelper.getQueryableDate(
-                    //                raw_to_date.substring(0, 4),
-                    //                raw_to_date.substring(4, 6),
-                    //                raw_to_date.substring(6, 8));
-                    //        System.out.println("from " +from_date + " " + "to " + to_date);
                     if (allCountrySlug == null){
                         Toast toast = Toast.makeText(getActivity(), "Not able to connect to server", Toast.LENGTH_SHORT);
                         toast.show();
@@ -161,11 +157,6 @@ public class GalleryFragment extends Fragment {
                     else{
                         getCountryStats();
                     }
-
-                    /*if (loadSecondCountryLayout)
-                        connectTwo();
-                    else
-                        connectOne();*/
                 } else {
                     String reminder = "Make sure to follow YYYYMMDD format\nOnly number allowed";
                     Toast toast = Toast.makeText(getActivity(), reminder, Toast.LENGTH_SHORT);
@@ -195,6 +186,7 @@ public class GalleryFragment extends Fragment {
                         Toast toast = Toast.makeText(getActivity(), reminder, Toast.LENGTH_SHORT);
                         toast.show();
                     } else {
+                        addToHistory(statsInfo);
                         if (!compare_two){ //if only displaying one country
                             RecyclerView recyclerView = rootView.findViewById(R.id.rvStatsList);
                             recyclerView.setHasFixedSize(true);
@@ -239,6 +231,7 @@ public class GalleryFragment extends Fragment {
                             Toast toast = Toast.makeText(getActivity(), reminder, Toast.LENGTH_SHORT);
                             toast.show();
                         } else {
+                            addToHistory(secondCountryStatsInfo);
                             if (waitCountryStats.get() == false){ //if we don't have a single piece of data yet
                                 firstCountryStats = secondCountryStatsInfo;
                                 waitCountryStats.set(true);
@@ -260,6 +253,34 @@ public class GalleryFragment extends Fragment {
                 @Override
                 public void onFailure(Call<List<CountryStatsInfo>> call, Throwable throwable) {
                     Log.e("MyDebugger", throwable.toString());
+                }
+            });
+        }
+    }
+
+    private void addToHistory(List<CountryStatsInfo> countryStats){
+        SharedPreferences sf = getActivity().getSharedPreferences(getString(R.string.pref_file_name), Context.MODE_PRIVATE);
+        String name = sf.getString(getString(R.string.pref_user_name), null);
+        if (name != null){
+            if (historyRetrofit == null){
+                historyRetrofit = new Retrofit.Builder().baseUrl(HistoryAPIService.BASE_HISTORY_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+            }
+            HistoryAPIService historyApiService = historyRetrofit.create(HistoryAPIService.class);
+            CountryStatsInfo csi = countryStats.get(0);
+            historyStats hs = new historyStats(name, csi.getCountry(),
+                    dateStringHelper.getDateFromQueryDate(from_date),
+                    dateStringHelper.getDateFromQueryDate(to_date), csi.getConfirmed());
+            Call<historyStats> call = historyApiService.createHistory(hs);
+            call.enqueue(new Callback<historyStats>(){
+                @Override
+                public void onResponse(Call<historyStats> call, Response<historyStats> response){
+                    Log.d("MyDebugger", response.toString());
+                }
+                @Override
+                public void onFailure(Call<historyStats> call, Throwable t){
+                    Log.d("MyDebugger", t.toString());
                 }
             });
         }
