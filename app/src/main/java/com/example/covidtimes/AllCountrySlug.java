@@ -1,11 +1,5 @@
 package com.example.covidtimes;
 
-import android.nfc.Tag;
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -23,4 +17,11 @@ public class AllCountrySlug {
     public TreeMap<String, String> getCountrySlugPairs() {return countrySlug;}
 
     public String getSlug(String country) {return countrySlug.get(country);}
+
+    public boolean isEmpty() {
+        if (countrySlug == null || countrySlug.isEmpty())
+            return true;
+        else
+            return false;
+    }
 }
