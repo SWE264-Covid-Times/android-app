@@ -25,7 +25,7 @@ public interface HistoryAPIService {
     Call<List<historyStats>> getHistory(@Path("name") String name);
 
     @GET("vaccinations/{county}")
-    Call<List<VaccinationStats>> getVaccinations(@Path("county")String county);
+    Call<List<VaccinationStats>> getVaccinations(@Path(value = "county", encoded = true)String county);
 
     @GET("vaccinations/irvine/{zipcode}")
     Call<List<VacProviderInfo>> getVacProvider(@Path("zipcode") int zipcode);
