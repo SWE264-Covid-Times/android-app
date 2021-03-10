@@ -33,6 +33,9 @@ public class dateStringHelper {
         c.set(Calendar.MONTH, Integer.parseInt(month) - 1);
         c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
         c.add(Calendar.DATE, offset);
+        if (!isBeforeToday(c)){
+            c = Calendar.getInstance();
+        }
         String date = sdf.format(c.getTime());
         Log.v( "MyDebugger",sdf.format(c.getTime()));
         return date + default_time;
@@ -53,6 +56,26 @@ public class dateStringHelper {
         try{
             sdf.parse(date);
         } catch (ParseException e){
+            return false;
+        }
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, Integer.parseInt(year));
+        c.set(Calendar.MONTH, Integer.parseInt(month) - 1);
+        c.set(Calendar.DAY_OF_MONTH, Integer.parseInt(day));
+        if (isBeforeToday(c)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    private static boolean isBeforeToday(Calendar c){
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY,0);
+        today.set(Calendar.MINUTE,0);
+        today.set(Calendar.SECOND,0);
+        if (c.compareTo(today) >= 0){
             return false;
         }
         return true;

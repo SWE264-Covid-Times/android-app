@@ -96,20 +96,26 @@ public class GalleryFragment extends Fragment {
         compareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                compare_two = true;
-                compareButton.setVisibility(Button.GONE);
-                Spinner secondSP = rootView.findViewById(R.id.spSecondCountry);
-                secondSP.setVisibility(Button.VISIBLE);
-                ArrayAdapter ad
-                        = new ArrayAdapter(
-                        getActivity(),
-                        android.R.layout.simple_spinner_item,
-                        allCountrySlug.getCountrySlugPairs().keySet().toArray());
+                if (allCountrySlug == null){
+                    Toast toast = Toast.makeText(getActivity(), "Not able to connect to server", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else{
+                    compare_two = true;
+                    compareButton.setVisibility(Button.GONE);
+                    Spinner secondSP = rootView.findViewById(R.id.spSecondCountry);
+                    secondSP.setVisibility(Button.VISIBLE);
+                    ArrayAdapter ad
+                            = new ArrayAdapter(
+                            getActivity(),
+                            android.R.layout.simple_spinner_item,
+                            allCountrySlug.getCountrySlugPairs().keySet().toArray());
 
-                ad.setDropDownViewResource(
-                        android.R.layout
-                                .simple_spinner_dropdown_item);
-                secondSP.setAdapter(ad);
+                    ad.setDropDownViewResource(
+                            android.R.layout
+                                    .simple_spinner_dropdown_item);
+                    secondSP.setAdapter(ad);
+                }
             }
         });
     }
@@ -158,7 +164,7 @@ public class GalleryFragment extends Fragment {
                         getCountryStats();
                     }
                 } else {
-                    String reminder = "Make sure to follow YYYYMMDD format\nOnly number allowed";
+                    String reminder = "Make sure to follow YYYYMMDD format\nOnly number allowed, before today";
                     Toast toast = Toast.makeText(getActivity(), reminder, Toast.LENGTH_SHORT);
                     toast.show();
                 }
