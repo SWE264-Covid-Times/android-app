@@ -90,7 +90,9 @@ public class LoginFragment extends Fragment {
                                 Log.v("locationHelper", e.toString());
                             }
                             if (result.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                                updateTextViews(result.get(0));
+                                if (getView() != null){
+                                    updateTextViews(result.get(0));
+                                }
                             }
                         }
                         @Override public void onStatusChanged(String provider, int status, Bundle extras){}

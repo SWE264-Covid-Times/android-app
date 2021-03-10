@@ -97,7 +97,9 @@ public class AboutFragment extends Fragment {
                                 Log.v("locationHelper", "IOException from getFomLocation");
                             }
                             if (result.size() > 0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                                updateTextViews(locationHelper.getCurrentState(result.get(0)));
+                                if (getView() != null){
+                                    updateTextViews(locationHelper.getCurrentState(result.get(0)));
+                                }
                             }
                         }
                         @Override public void onStatusChanged(String provider, int status, Bundle extras){}
